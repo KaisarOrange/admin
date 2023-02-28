@@ -16,7 +16,7 @@ import {
 } from 'firebase/firestore';
 import { db } from '@/firebaseConfig';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { getDoneOrder, getOrder } from '@/pages/api/itemsCall';
+import { getOrder } from '@/pages/api/itemsCall';
 
 export default function AlertDialog(props: {
   state: any;
@@ -36,12 +36,17 @@ export default function AlertDialog(props: {
   const { refetch: refetchRow } = useQuery({
     queryKey: ['row', props.page],
     queryFn: () => {
-      return getOrder(props.page);
+      return getOrder(props.page, 'order');
     },
-
     enabled: false,
   });
-  const { refetch: refetchDone } = useQuery(['rowDone'], getDoneOrder);
+  const { refetch: refetchDone } = useQuery({
+    queryKey: ['rowDone', props.page],
+    queryFn: () => {
+      return getOrder(props.page, 'done');
+    },
+    enabled: false,
+  });
 
   const mutation = useMutation({
     mutationFn: async () => {
@@ -67,10 +72,10 @@ export default function AlertDialog(props: {
     },
   });
 
-  if (mutation.isSuccess) {
-    refetchDone();
-    refetchRow();
-  }
+  // if (mutation.isSuccess) {
+  //   refetchDone();
+  //   refetchRow();
+  // }
 
   return (
     <div>

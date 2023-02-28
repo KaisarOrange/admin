@@ -24,37 +24,47 @@ import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 import Inbox from '@mui/icons-material/Inbox';
 import Mail from '@mui/icons-material/Mail';
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  limit,
+  query,
+} from 'firebase/firestore';
+import { db } from '../../firebaseConfig';
+import BasicTable from './Order/Table';
 import CollapsibleTable from './Order/TableCollapse';
 import { useQuery } from '@tanstack/react-query';
-import { getOrder } from '../api/itemsCall';
+import { getDoneOrder, getOrder, isTrue } from '../api/itemsCall';
 
 function Menu({ orderData, doneData }: any) {
   const [state, setState]: any = useState(1);
   const [open, setOpen] = useState(false);
   const [page, setPage] = useState(0);
-
-  const { data: orderDataDoneQuery, isLoading: IsLoadingDone } = useQuery({
-    queryKey: ['rowDone', page],
-    queryFn: () => {
-      return getOrder(page, 'done');
-    },
-    initialData: doneData,
-  });
-
+  const [isLastPage, setIsLastPage] = useState(false);
   const {
     data: orderDataQuery,
     isLoading: isLoadingOrder,
     isFetching,
-    refetch,
   } = useQuery({
     queryKey: ['row', page],
     queryFn: () => {
-      return getOrder(page, 'order');
+      return getOrder(page);
     },
     initialData: orderData,
   });
+  const { data: orderDataDoneQuery, isLoading: IsLoadingDone } = useQuery(
+    ['rowDone'],
+    getDoneOrder,
+    doneData
+  );
 
   // const hello = isTrue().then((res) => console.log(res));
+
+  useEffect(() => {
+    isTrue().then((res) => setIsLastPage(res.isTrueOrNot));
+  }, [page]);
 
   const Main = styled('main', {
     shouldForwardProp: (prop) => prop !== 'open',
@@ -214,7 +224,6 @@ function Menu({ orderData, doneData }: any) {
             disabled={state === 2}
             onClick={() => {
               setState(2);
-              setPage(0);
             }}
             variant='contained'
             color='error'

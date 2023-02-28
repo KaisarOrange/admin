@@ -70,11 +70,7 @@ function Row(props: any) {
           {isFetching ? '' : row.address}
         </TableCell>
         <TableCell>
-          {isFetching ? (
-            ''
-          ) : (
-            <AlertDialog state={state} data={row} page={page} />
-          )}
+          <AlertDialog state={state} data={row} page={page} />
         </TableCell>
       </TableRow>
       <TableRow>
