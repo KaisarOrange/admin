@@ -223,7 +223,7 @@ export default function CollapsibleTable({
         <TableBody>
           {tableData?.map((row: rowData, i: number) => (
             <Row
-              key={row.name}
+              key={row.name + i.toString()}
               row={row}
               i={i}
               state={state}

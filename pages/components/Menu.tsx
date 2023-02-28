@@ -33,25 +33,20 @@ function Menu({ orderData, doneData }: any) {
   const [open, setOpen] = useState(false);
   const [page, setPage] = useState(0);
 
-  const { data: orderDataDoneQuery, isLoading: IsLoadingDone } = useQuery({
-    queryKey: ['rowDone', page],
-    queryFn: () => {
-      return getOrder(page, 'done');
-    },
-    initialData: doneData,
-  });
-
-  const {
-    data: orderDataQuery,
-    isLoading: isLoadingOrder,
-    isFetching,
-    refetch,
-  } = useQuery({
+  const { data: orderDataQuery, isFetching } = useQuery({
     queryKey: ['row', page],
     queryFn: () => {
       return getOrder(page, 'order');
     },
     initialData: orderData,
+  });
+
+  const { data: orderDataDoneQuery } = useQuery({
+    queryKey: ['rowDone', page],
+    queryFn: () => {
+      return getOrder(page, 'done');
+    },
+    initialData: doneData,
   });
 
   // const hello = isTrue().then((res) => console.log(res));
@@ -173,8 +168,13 @@ function Menu({ orderData, doneData }: any) {
               setPage((prev) => prev - 1);
             }}
             variant='contained'
-            disabled={orderDataQuery[0].isItemExist === true}
-            color='primary'
+            disabled={
+              state < 2
+                ? orderDataQuery[0]?.isItemExist === true ||
+                  orderDataQuery.length === 0
+                : orderDataDoneQuery[0]?.isItemExist === true ||
+                  orderDataDoneQuery.length === 0
+            }
           >
             Prev
           </Button>
@@ -184,7 +184,12 @@ function Menu({ orderData, doneData }: any) {
             }}
             variant='contained'
             disabled={
-              orderDataQuery[orderDataQuery.length - 1].isLastItemExist === true
+              state < 2
+                ? orderDataQuery[orderDataQuery.length - 1]?.isLastItemExist ===
+                    true || orderDataQuery.length === 0
+                : orderDataDoneQuery[orderDataDoneQuery.length - 1]
+                    ?.isLastItemExist === true ||
+                  orderDataDoneQuery.length === 0
             }
             color='primary'
           >
@@ -204,6 +209,7 @@ function Menu({ orderData, doneData }: any) {
             disabled={state === 1}
             onClick={() => {
               setState(1);
+              setPage(0);
             }}
             variant='contained'
             color='success'

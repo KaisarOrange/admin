@@ -72,10 +72,10 @@ export default function AlertDialog(props: {
     },
   });
 
-  // if (mutation.isSuccess) {
-  //   refetchDone();
-  //   refetchRow();
-  // }
+  if (mutation.isSuccess) {
+    refetchDone();
+    refetchRow();
+  }
 
   return (
     <div>

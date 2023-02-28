@@ -8,13 +8,13 @@ import Menu from './components/Menu';
 export async function getStaticProps() {
   // Call an external API endpoint to get posts.
   // You can use any data fetching library
-  const first = query(collection(db, 'order'), limit(5));
+  const first = query(collection(db, 'order'), limit(2));
   const docSnap = await getDocs(first);
   const data = docSnap.docs.map((doc) => {
     return { ...doc.data(), id: doc.id };
   });
 
-  const firstDone = query(collection(db, 'order'), limit(5));
+  const firstDone = query(collection(db, 'order'), limit(2));
   const docSnapDone = await getDocs(firstDone);
   const dataDone = docSnapDone.docs.map((doc) => {
     return { ...doc.data(), id: doc.id };

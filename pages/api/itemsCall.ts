@@ -8,8 +8,12 @@ import {
   startAt,
 } from 'firebase/firestore';
 
-let lastdoc: any;
-let prevdoc: any;
+let prevOrderdoc: any;
+let prevDoneOrderdoc: any;
+
+let prevLastOrderdoc: any;
+let prevLastDoneOrderdoc: any;
+
 let currentPage: number = 0;
 let itemCount: number = 0;
 
@@ -22,13 +26,19 @@ const getOrder = async (page: number = 0, path: string) => {
   const prev: boolean = currentPage > page;
 
   if (next === true) {
-    console.log('penis');
-    const next = query(collection(db, path), startAfter(lastdoc), limit(5));
-    const firDoct = await getDocs(collection(db, path));
-    const docSnap = await getDocs(next);
-    const firsta = query(collection(db, path));
-    const doca = await getDocs(firsta);
-    lastdoc = docSnap.docs[docSnap.docs.length - 1];
+    const docSnap = await getDocs(
+      query(
+        collection(db, path),
+        startAfter(path === 'order' ? prevLastOrderdoc : prevLastDoneOrderdoc),
+        limit(2)
+      )
+    );
+
+    path === 'order'
+      ? (prevLastOrderdoc = docSnap.docs[docSnap.docs.length - 1])
+      : (prevLastDoneOrderdoc = docSnap.docs[docSnap.docs.length - 1]);
+
+    const doca = await getDocs(query(collection(db, path)));
 
     const data = docSnap.docs.map((doc) => {
       let isItemExist: boolean = false;
@@ -55,13 +65,19 @@ const getOrder = async (page: number = 0, path: string) => {
     return data;
   } else if (prev === true) {
     let count: number = 0;
-    const firDoct = await getDocs(collection(db, path));
-    console.log(prevdoc.id);
-    const next = query(collection(db, path), startAt(prevdoc), limit(5));
-    const docSnap = await getDocs(next);
+
+    const docSnap = await getDocs(
+      query(
+        collection(db, path),
+        startAt(path === 'order' ? prevOrderdoc : prevDoneOrderdoc),
+        limit(2)
+      )
+    );
+    path === 'order'
+      ? (prevLastOrderdoc = docSnap.docs[docSnap.docs.length - 1])
+      : (prevLastDoneOrderdoc = docSnap.docs[docSnap.docs.length - 1]);
     const firsta = query(collection(db, path));
     const doca = await getDocs(firsta);
-    lastdoc = docSnap.docs[docSnap.docs.length - 1];
 
     const data = docSnap.docs.map((doc) => {
       let isItemExist: boolean = false;
@@ -87,16 +103,17 @@ const getOrder = async (page: number = 0, path: string) => {
 
     return data;
   } else {
-    console.log('tits');
+    const doca = await getDocs(query(collection(db, path)));
 
-    const firsta = query(collection(db, path));
-    const doca = await getDocs(firsta);
-    const first = query(collection(db, path), limit(5));
-    const docSnap = await getDocs(first);
+    const docSnap = await getDocs(query(collection(db, path), limit(2)));
 
-    prevdoc = docSnap.docs[docSnap.docs.length - 5];
-    lastdoc = docSnap.docs[docSnap.docs.length - 1];
-    console.log(lastdoc.id, 'is my name');
+    path === 'order'
+      ? (prevOrderdoc = docSnap.docs[0])
+      : (prevDoneOrderdoc = docSnap.docs[0]);
+
+    path === 'order'
+      ? (prevLastOrderdoc = docSnap.docs[docSnap.docs.length - 1])
+      : (prevLastDoneOrderdoc = docSnap.docs[docSnap.docs.length - 1]);
 
     const data = docSnap.docs.map((doc) => {
       let isItemExist: boolean = false;
@@ -121,6 +138,8 @@ const getOrder = async (page: number = 0, path: string) => {
         isLastItemExist: isLastItemExist,
       };
     });
+    console.log(prevLastOrderdoc.id);
+
     return data;
   }
 };
