@@ -63,7 +63,7 @@ function Menu({ orderData, doneData }: any) {
   // const hello = isTrue().then((res) => console.log(res));
 
   useEffect(() => {
-    isTrue().then((res) => setIsLastPage(res));
+    isTrue().then((res) => setIsLastPage(res.isTrueOrNot));
   }, [page]);
 
   const Main = styled('main', {
@@ -183,6 +183,7 @@ function Menu({ orderData, doneData }: any) {
               setPage((prev) => prev - 1);
             }}
             variant='contained'
+            disabled={orderDataQuery[0].isItemExist === true}
             color='primary'
           >
             Prev
@@ -192,7 +193,9 @@ function Menu({ orderData, doneData }: any) {
               setPage((prev) => prev + 1);
             }}
             variant='contained'
-            disabled={isLastPage}
+            disabled={
+              orderDataQuery[orderDataQuery.length - 1].isLastItemExist === true
+            }
             color='primary'
           >
             Next
@@ -231,9 +234,7 @@ function Menu({ orderData, doneData }: any) {
 
         {/* <BasicTable data={orderData} /> */}
         <Box sx={{ flexGrow: 1, bgcolor: 'background.default', p: 3 }}></Box>
-        <Button onClick={() => console.log('aaa ', orderData.length)}>
-          Test
-        </Button>
+        <Button onClick={() => console.log(orderDataQuery)}>Test</Button>
       </Main>
     </Box>
   );

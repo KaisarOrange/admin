@@ -17,6 +17,15 @@ let prevdoc: any;
 let currentPage: number = 0;
 let itemCount: number = 0;
 
+const isTrue = async () => {
+  const docSnapa = await getDocs(collection(db, 'order'));
+
+  return {
+    isTrueOrNot: docSnapa.size === itemCount,
+    firstItem: docSnapa.docs[0].data(),
+  };
+};
+
 const getOrder = async (page: number = 0) => {
   const next: boolean = currentPage < page;
   const prev: boolean = currentPage > page;
@@ -24,13 +33,29 @@ const getOrder = async (page: number = 0) => {
 
   if (next === true) {
     const next = query(collection(db, 'order'), startAfter(lastdoc), limit(5));
+    const firDoct = await getDocs(collection(db, 'order'));
     const docSnap = await getDocs(next);
-
+    const firsta = query(collection(db, 'order'));
+    const doca = await getDocs(firsta);
     lastdoc = docSnap.docs[docSnap.docs.length - 1];
 
     const data = docSnap.docs.map((doc) => {
+      let isItemExist: boolean = false;
+      let isLastItemExist: boolean = false;
+
+      doca.docs[0].data().id === doc.data().id ? (isItemExist = true) : 'log';
+      doca.docs[doca.size - 1].data().id === doc.data().id
+        ? (isLastItemExist = true)
+        : 'log';
+
       itemCount += 1;
-      return { ...doc.data(), id: doc.id };
+
+      return {
+        ...doc.data(),
+        id: doc.id,
+        isItemExist: isItemExist,
+        isLastItemExist: isLastItemExist,
+      };
     });
     console.log('itemCount: ', itemCount);
 
@@ -39,15 +64,31 @@ const getOrder = async (page: number = 0) => {
     return data;
   } else if (prev === true) {
     let count: number = 0;
+    const firDoct = await getDocs(collection(db, 'order'));
     console.log(prevdoc.id);
     const next = query(collection(db, 'order'), startAt(prevdoc), limit(5));
     const docSnap = await getDocs(next);
-
+    const firsta = query(collection(db, 'order'));
+    const doca = await getDocs(firsta);
     lastdoc = docSnap.docs[docSnap.docs.length - 1];
 
     const data = docSnap.docs.map((doc) => {
-      count += 1;
-      return { ...doc.data(), id: doc.id };
+      let isItemExist: boolean = false;
+      let isLastItemExist: boolean = false;
+
+      doca.docs[0].data().id === doc.data().id ? (isItemExist = true) : 'log';
+      doca.docs[doca.size - 1].data().id === doc.data().id
+        ? (isLastItemExist = true)
+        : 'log';
+
+      itemCount += 1;
+
+      return {
+        ...doc.data(),
+        id: doc.id,
+        isItemExist: isItemExist,
+        isLastItemExist: isLastItemExist,
+      };
     });
     itemCount = itemCount - (itemCount - count);
     console.log('itemCount: ', itemCount);
@@ -55,6 +96,10 @@ const getOrder = async (page: number = 0) => {
 
     return data;
   } else {
+    const firsta = query(collection(db, 'order'));
+    const doca = await getDocs(firsta);
+
+    console.log('hello ');
     const first = query(collection(db, 'order'), limit(5));
     const docSnap = await getDocs(first);
 
@@ -62,17 +107,30 @@ const getOrder = async (page: number = 0) => {
     lastdoc = docSnap.docs[docSnap.docs.length - 1];
     console.log('prev: ', prevdoc.id);
     const data = docSnap.docs.map((doc) => {
+      let isItemExist: boolean = false;
+      let isLastItemExist: boolean = false;
+      docSnap.docs[0].data().name === doc.data().name
+        ? (isItemExist = true)
+        : 'log';
+
+      docSnap.docs[0].data().name === doc.data().name
+        ? (isItemExist = true)
+        : 'log';
+      doca.docs[doca.size - 1].data().id === doc.data().id
+        ? (isLastItemExist = true)
+        : 'log';
+
       itemCount += 1;
-      return { ...doc.data(), id: doc.id };
+
+      return {
+        ...doc.data(),
+        id: doc.id,
+        isItemExist: isItemExist,
+        isLastItemExist: isLastItemExist,
+      };
     });
     return data;
   }
-};
-
-const isTrue = async () => {
-  const docSnapa = await getDocs(collection(db, 'order'));
-
-  return docSnapa.size === itemCount;
 };
 
 const getDoneOrder = async () => {
@@ -86,3 +144,4 @@ const getDoneOrder = async () => {
 };
 
 export { getOrder, getDoneOrder, isTrue };
+//doca.docs[doca.size - 1].data()
