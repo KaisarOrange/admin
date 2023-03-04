@@ -243,7 +243,7 @@ function Menu({ orderData, doneData }: any) {
 
         {/* <BasicTable data={orderData} /> */}
         <Box sx={{ flexGrow: 1, bgcolor: 'background.default', p: 3 }}></Box>
-        <Button onClick={() => console.log(orderDataQuery)}>Test</Button>
+        {/* <Button onClick={() => console.log(orderDataQuery)}>Test</Button> */}
       </Main>
     </Box>
   );

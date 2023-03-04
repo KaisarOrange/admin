@@ -21,6 +21,10 @@ function Row(props: any) {
   const [open, setOpen] = React.useState(false);
   const odd: boolean = i % 2 === 0;
 
+  const converter = (n: number) => {
+    return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+  };
+
   return (
     <React.Fragment>
       <TableRow
@@ -116,7 +120,7 @@ function Row(props: any) {
                           fontSize: '1rem',
                         }}
                       >
-                        Rp.{historyRow.price}
+                        Rp.{converter(historyRow.price)}
                       </TableCell>
                       <TableCell
                         sx={{
@@ -132,7 +136,7 @@ function Row(props: any) {
                           fontSize: '1rem',
                         }}
                       >
-                        Rp.{historyRow.amount * historyRow.price}
+                        Rp.{converter(historyRow.amount * historyRow.price)}
                       </TableCell>
                     </TableRow>
                   ))}
@@ -157,7 +161,12 @@ function Row(props: any) {
                       }}
                       align='right'
                     >
-                      Rp. 200
+                      Rp.
+                      {converter(
+                        row?.order.reduce((acc: number, e: number) => {
+                          return e.price * e.amount + acc;
+                        }, 0)
+                      )}
                     </TableCell>
                   </TableRow>
                   <TableRow>
