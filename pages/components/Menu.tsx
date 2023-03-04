@@ -27,6 +27,9 @@ import Mail from '@mui/icons-material/Mail';
 import CollapsibleTable from './Order/TableCollapse';
 import { useQuery } from '@tanstack/react-query';
 import { getOrder } from '../api/itemsCall';
+import dynamic from 'next/dynamic';
+
+const RowTwo = dynamic(() => import('./Order/TableCollapse'), { ssr: false });
 
 function Menu({ orderData, doneData }: any) {
   const [state, setState]: any = useState(1);
@@ -147,7 +150,7 @@ function Menu({ orderData, doneData }: any) {
       </Drawer>
       <Main open={open}>
         <Toolbar />
-        <CollapsibleTable
+        <RowTwo
           data={orderDataQuery}
           dataDone={orderDataDoneQuery}
           state={state}
@@ -164,10 +167,14 @@ function Menu({ orderData, doneData }: any) {
         >
           {' '}
           <Button
+            sx={{
+              fontSize: '1.5rem',
+              fontWeight: 'bold',
+            }}
             onClick={() => {
               setPage((prev) => prev - 1);
             }}
-            variant='contained'
+            variant='text'
             disabled={
               state < 2
                 ? orderDataQuery[0]?.isItemExist === true ||
@@ -175,14 +182,19 @@ function Menu({ orderData, doneData }: any) {
                 : orderDataDoneQuery[0]?.isItemExist === true ||
                   orderDataDoneQuery.length === 0
             }
+            color='warning'
           >
-            Prev
+            {'<'}
           </Button>
           <Button
+            sx={{
+              fontSize: '1.5rem',
+              fontWeight: 'bold',
+            }}
             onClick={() => {
               setPage((prev) => prev + 1);
             }}
-            variant='contained'
+            variant='text'
             disabled={
               state < 2
                 ? orderDataQuery[orderDataQuery.length - 1]?.isLastItemExist ===
@@ -191,9 +203,9 @@ function Menu({ orderData, doneData }: any) {
                     ?.isLastItemExist === true ||
                   orderDataDoneQuery.length === 0
             }
-            color='primary'
+            color='warning'
           >
-            Next
+            {'>'}
           </Button>
         </Box>
         <Box

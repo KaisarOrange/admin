@@ -30,7 +30,7 @@ const getOrder = async (page: number = 0, path: string) => {
       query(
         collection(db, path),
         startAfter(path === 'order' ? prevLastOrderdoc : prevLastDoneOrderdoc),
-        limit(2)
+        limit(5)
       )
     );
 
@@ -70,7 +70,7 @@ const getOrder = async (page: number = 0, path: string) => {
       query(
         collection(db, path),
         startAt(path === 'order' ? prevOrderdoc : prevDoneOrderdoc),
-        limit(2)
+        limit(5)
       )
     );
     path === 'order'
@@ -105,7 +105,7 @@ const getOrder = async (page: number = 0, path: string) => {
   } else {
     const doca = await getDocs(query(collection(db, path)));
 
-    const docSnap = await getDocs(query(collection(db, path), limit(2)));
+    const docSnap = await getDocs(query(collection(db, path), limit(5)));
 
     path === 'order'
       ? (prevOrderdoc = docSnap.docs[0])
@@ -138,7 +138,6 @@ const getOrder = async (page: number = 0, path: string) => {
         isLastItemExist: isLastItemExist,
       };
     });
-    console.log(prevLastOrderdoc.id);
 
     return data;
   }
