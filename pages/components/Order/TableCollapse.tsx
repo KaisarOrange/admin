@@ -32,7 +32,10 @@ export default function CollapsibleTable({
   }
   const tableData = state === 1 ? data : dataDone;
   return (
-    <TableContainer component={Paper}>
+    <TableContainer
+      sx={{ maxWidth: { lg: '80vw' }, margin: 'auto' }}
+      component={Paper}
+    >
       <Table sx={{ minWidth: '440px' }} aria-label='collapsible table'>
         <TableHead sx={{ backgroundColor: '#dbae30' }}>
           <TableRow>

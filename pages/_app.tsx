@@ -6,6 +6,7 @@ import {
   useQuery,
   Hydrate,
 } from '@tanstack/react-query';
+import RouterGuard from './components/RouterGuard';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -19,7 +20,9 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
       <Hydrate state={pageProps.dehydratedState}>
-        <Component {...pageProps} />
+        <RouterGuard>
+          <Component {...pageProps} />
+        </RouterGuard>
       </Hydrate>
     </QueryClientProvider>
   );

@@ -58,7 +58,6 @@ const getOrder = async (page: number = 0, path: string) => {
         isLastItemExist: isLastItemExist,
       };
     });
-    console.log('itemCount: ', data);
 
     currentPage = page;
 
@@ -98,7 +97,7 @@ const getOrder = async (page: number = 0, path: string) => {
       };
     });
     itemCount = itemCount - (itemCount - count);
-    console.log('itemCount: ', itemCount);
+
     currentPage = page;
 
     return data;

@@ -1,5 +1,4 @@
 import {
-  AppBar,
   Box,
   Button,
   Divider,
@@ -12,36 +11,47 @@ import {
   Toolbar,
   Typography,
 } from '@mui/material';
-import PropTypes from 'prop-types';
 import MenuIcon from '@mui/icons-material/Menu';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
-import MuiAppBar, {
-  AppBarProps as MuiAppBarProps,
-  AppBarProps,
-} from '@mui/material/AppBar';
-import { styled, useTheme } from '@mui/material/styles';
+
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 import Inbox from '@mui/icons-material/Inbox';
-import Mail from '@mui/icons-material/Mail';
-import CollapsibleTable from './Order/TableCollapse';
+
 import { useQuery } from '@tanstack/react-query';
 import { getOrder } from '../api/itemsCall';
 import dynamic from 'next/dynamic';
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+import Main from './Main/Main';
+import AppBar from './Main/AppBar';
+import { useAuthState } from 'react-firebase-hooks/auth';
 
-const RowTwo = dynamic(() => import('./Order/TableCollapse'), { ssr: false });
+import { getAuth, signOut } from 'firebase/auth';
 
-function Menu({ orderData, doneData }: any) {
+const Table = dynamic(() => import('./Order/TableCollapse'), { ssr: false });
+
+function Menu({ orderData, doneData, hello }: any) {
   const [state, setState]: any = useState(1);
   const [open, setOpen] = useState(false);
   const [page, setPage] = useState(0);
-
+  const auth = getAuth();
+  const [user, loading, error] = useAuthState(auth);
+  const signOutt = () => {
+    signOut(auth)
+      .then(() => {
+        // Sign-out successful.
+        console.log('hello');
+      })
+      .catch((error) => {
+        // An error happened.
+      });
+  };
   const { data: orderDataQuery, isFetching } = useQuery({
     queryKey: ['row', page],
     queryFn: () => {
       return getOrder(page, 'order');
     },
-    initialData: orderData,
+    initialData: [],
   });
 
   const { data: orderDataDoneQuery } = useQuery({
@@ -49,54 +59,15 @@ function Menu({ orderData, doneData }: any) {
     queryFn: () => {
       return getOrder(page, 'done');
     },
-    initialData: doneData,
+    initialData: [],
   });
 
   // const hello = isTrue().then((res) => console.log(res));
 
-  const Main = styled('main', {
-    shouldForwardProp: (prop) => prop !== 'open',
-  })<{
-    open?: boolean;
-  }>(({ theme, open }) => ({
-    flexGrow: 1,
-    padding: theme.spacing(3),
-    transition: theme.transitions.create('margin', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    marginLeft: `-${200}px`,
-    ...(open && {
-      transition: theme.transitions.create('margin', {
-        easing: theme.transitions.easing.easeOut,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
-      marginLeft: 0,
-    }),
-  }));
-  type openType = {
-    open: any;
-  };
-  const AppBar = styled(MuiAppBar, {
-    shouldForwardProp: (prop) => prop !== 'open',
-  })<AppBarProps>(({ theme }) => ({
-    transition: theme.transitions.create(['margin', 'width'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    ...(open && {
-      width: `calc(100% - ${200}px)`,
-      marginLeft: `${200}px`,
-      transition: theme.transitions.create(['margin', 'width'], {
-        easing: theme.transitions.easing.easeOut,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
-    }),
-  }));
-
   return (
     <Box sx={{ display: 'flex' }}>
       <AppBar
+        open={open}
         position='fixed'
         sx={{
           ml: `${200}px`,
@@ -134,23 +105,21 @@ function Menu({ orderData, doneData }: any) {
         <Image alt='' src='/pastaboys.png' width={200} height={65} />
         <Divider />
         <List>
-          {['Order', 'Financials', 'Send email', 'Drafts'].map(
-            (text, index) => (
-              <ListItem key={text} disablePadding>
-                <ListItemButton>
-                  <ListItemIcon>
-                    {index % 2 === 0 ? <Inbox /> : <Mail />}
-                  </ListItemIcon>
-                  <ListItemText primary={text} />
-                </ListItemButton>
-              </ListItem>
-            )
-          )}
+          {['Order', 'Financials'].map((text, index) => (
+            <ListItem key={text} disablePadding>
+              <ListItemButton onClick={() => console.log('hello')}>
+                <ListItemIcon>
+                  {index % 2 === 0 ? <Inbox /> : <AttachMoneyIcon />}
+                </ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItemButton>
+            </ListItem>
+          ))}
         </List>
       </Drawer>
       <Main open={open}>
         <Toolbar />
-        <RowTwo
+        <Table
           data={orderDataQuery}
           dataDone={orderDataDoneQuery}
           state={state}
@@ -178,9 +147,9 @@ function Menu({ orderData, doneData }: any) {
             disabled={
               state < 2
                 ? orderDataQuery[0]?.isItemExist === true ||
-                  orderDataQuery.length === 0
+                  orderDataQuery?.length === 0
                 : orderDataDoneQuery[0]?.isItemExist === true ||
-                  orderDataDoneQuery.length === 0
+                  orderDataDoneQuery?.length === 0
             }
             color='warning'
           >
@@ -240,10 +209,10 @@ function Menu({ orderData, doneData }: any) {
             Done
           </Button>
         </Box>
-
+        {hello}
         {/* <BasicTable data={orderData} /> */}
         <Box sx={{ flexGrow: 1, bgcolor: 'background.default', p: 3 }}></Box>
-        {/* <Button onClick={() => console.log(orderDataQuery)}>Test</Button> */}
+        {/* <Button onClick={() => signOutt()}>Test</Button> */}
       </Main>
     </Box>
   );

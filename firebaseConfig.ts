@@ -1,18 +1,19 @@
 import { initializeApp } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore';
+import { getAuth } from 'firebase/auth';
 import 'firebase/firestore';
 
 // TODO: Replace the following with your app's Firebase project configuration
 // See: https://support.google.com/firebase/answer/7015592
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyB01Q_AMKzUa9udcV0N9N96315BgxVmIfc',
-  authDomain: 'pastaboysorder.firebaseapp.com',
-  projectId: 'pastaboysorder',
-  storageBucket: 'pastaboysorder.appspot.com',
-  messagingSenderId: '688589310816',
-  appId: '1:688589310816:web:3e6b47fa89e852f9d52c05',
-  measurementId: 'G-XRQD79SDW9',
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_KEY,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH,
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECTID,
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE,
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGE,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APPID,
+  measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENTID,
 };
 
 // Initialize Firebase
@@ -20,5 +21,6 @@ const app = initializeApp(firebaseConfig);
 
 // Initialize Cloud Firestore and get a reference to the service
 const db = getFirestore(app);
+const auth = getAuth(app);
 
-export { db };
+export { db, auth };
