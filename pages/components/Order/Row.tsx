@@ -163,7 +163,7 @@ function Row(props: any) {
                     >
                       Rp.
                       {converter(
-                        row?.order.reduce((acc: number, e: number) => {
+                        row?.order.reduce((acc: any, e: any) => {
                           return e.price * e.amount + acc;
                         }, 0)
                       )}
