@@ -126,7 +126,6 @@ const getOrder = async (page: number = 0, path: string) => {
         isLastItemExist: isLastItemExist,
       };
     });
-    console.log(data);
 
     return data;
   }

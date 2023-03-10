@@ -12,6 +12,10 @@ import {
 import { useForm } from 'react-hook-form';
 
 function Login() {
+  type input = {
+    email: string;
+    password: string;
+  };
   const router = useRouter();
   const [user, loading] = useAuthState(auth);
   const {
@@ -19,7 +23,7 @@ function Login() {
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm();
+  } = useForm<input>();
   const [email, setEmail] = useState('');
 
   const [signInWithEmailAndPassword] = useSignInWithEmailAndPassword(auth);
@@ -34,10 +38,7 @@ function Login() {
         // An error happened.
       });
   };
-  type input = {
-    email: string;
-    password: string;
-  };
+
   const onSubmit = (data: input) => {
     signInWithEmailAndPassword(data.email, data.password);
     if (user !== null) {
