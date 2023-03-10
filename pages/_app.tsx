@@ -23,9 +23,9 @@ export default function App({ Component, pageProps }: AppProps) {
       <Hydrate state={pageProps.dehydratedState}>
         <RouterGuard>
           <Component {...pageProps} />
-          <Analytics />
         </RouterGuard>
       </Hydrate>
+      <Analytics />
     </QueryClientProvider>
   );
 }
