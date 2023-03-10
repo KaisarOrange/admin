@@ -44,10 +44,8 @@ const getOrder = async (page: number = 0, path: string) => {
       let isItemExist: boolean = false;
       let isLastItemExist: boolean = false;
 
-      doca.docs[0].data().id === doc.data().id ? (isItemExist = true) : 'log';
-      doca.docs[doca.size - 1].data().id === doc.data().id
-        ? (isLastItemExist = true)
-        : 'log';
+      doca.docs[0].id === doc.id ? (isItemExist = true) : 'log';
+      doca.docs[doca.size - 1].id === doc.id ? (isLastItemExist = true) : 'log';
 
       itemCount += 1;
 
@@ -82,10 +80,8 @@ const getOrder = async (page: number = 0, path: string) => {
       let isItemExist: boolean = false;
       let isLastItemExist: boolean = false;
 
-      doca.docs[0].data().id === doc.data().id ? (isItemExist = true) : 'log';
-      doca.docs[doca.size - 1].data().id === doc.data().id
-        ? (isLastItemExist = true)
-        : 'log';
+      doca.docs[0].id === doc.id ? (isItemExist = true) : 'log';
+      doca.docs[doca.size - 1].id === doc.id ? (isLastItemExist = true) : 'log';
 
       itemCount += 1;
 
@@ -117,16 +113,9 @@ const getOrder = async (page: number = 0, path: string) => {
     const data = docSnap.docs.map((doc) => {
       let isItemExist: boolean = false;
       let isLastItemExist: boolean = false;
-      docSnap.docs[0].data().name === doc.data().name
-        ? (isItemExist = true)
-        : 'log';
 
-      docSnap.docs[0].data().name === doc.data().name
-        ? (isItemExist = true)
-        : 'log';
-      doca.docs[doca.size - 1].data().id === doc.data().id
-        ? (isLastItemExist = true)
-        : 'log';
+      docSnap.docs[0].id === doc.id ? (isItemExist = true) : 'log';
+      doca.docs[doca.size - 1].id === doc.id ? (isLastItemExist = true) : 'log';
 
       itemCount += 1;
 
@@ -137,6 +126,7 @@ const getOrder = async (page: number = 0, path: string) => {
         isLastItemExist: isLastItemExist,
       };
     });
+    console.log(data);
 
     return data;
   }
