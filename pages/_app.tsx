@@ -7,6 +7,7 @@ import {
   Hydrate,
 } from '@tanstack/react-query';
 import RouterGuard from './components/RouterGuard';
+import { Analytics } from '@vercel/analytics/react';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -22,6 +23,7 @@ export default function App({ Component, pageProps }: AppProps) {
       <Hydrate state={pageProps.dehydratedState}>
         <RouterGuard>
           <Component {...pageProps} />
+          <Analytics />
         </RouterGuard>
       </Hydrate>
     </QueryClientProvider>
