@@ -46,7 +46,7 @@ function Menu({ orderData, doneData, hello }: any) {
         // An error happened.
       });
   };
-  const { data: orderDataQuery, isFetching } = useQuery({
+  const { data: orderDataQuery, isLoading: isFetching } = useQuery({
     queryKey: ['row', page],
     queryFn: () => {
       return getOrder(page, 'order');
@@ -61,7 +61,7 @@ function Menu({ orderData, doneData, hello }: any) {
     },
     initialData: [],
   });
-
+  // { enabled: Boolean(user) }
   // const hello = isTrue().then((res) => console.log(res));
 
   return (
@@ -213,6 +213,7 @@ function Menu({ orderData, doneData, hello }: any) {
         {/* <BasicTable data={orderData} /> */}
         <Box sx={{ flexGrow: 1, bgcolor: 'background.default', p: 3 }}></Box>
         {/* <Button onClick={() => signOutt()}>Test</Button> */}
+        {'test'}
       </Main>
     </Box>
   );

@@ -50,7 +50,7 @@ function Row(props: any) {
           component='th'
           scope='row'
         >
-          {isFetching ? '' : row.name}
+          {row.name}
         </TableCell>
         <TableCell
           sx={{
@@ -59,7 +59,7 @@ function Row(props: any) {
           }}
           align='left'
         >
-          {isFetching ? '' : row.number}
+          {row.number}
         </TableCell>
         <TableCell
           sx={{
@@ -71,7 +71,7 @@ function Row(props: any) {
           }}
           align='left'
         >
-          {isFetching ? '' : row.address}
+          {row.address}
         </TableCell>
         <TableCell>
           <AlertDialog state={state} data={row} page={page} />
@@ -90,7 +90,7 @@ function Row(props: any) {
                   fontSize: '1rem',
                 }}
               >
-                {isFetching ? '' : row.address}
+                {row.address}
               </Typography>
               <Toolbar />
               <Typography variant='h6'>Pesanan</Typography>
