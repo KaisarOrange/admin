@@ -213,7 +213,6 @@ function Menu({ orderData, doneData, hello }: any) {
         {/* <BasicTable data={orderData} /> */}
         <Box sx={{ flexGrow: 1, bgcolor: 'background.default', p: 3 }}></Box>
         {/* <Button onClick={() => signOutt()}>Test</Button> */}
-        {'test'}
       </Main>
     </Box>
   );
