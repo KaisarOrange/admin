@@ -15,15 +15,12 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import { Button, Divider, Toolbar } from '@mui/material';
 import AlertDialog from './Alerts';
 import CircularProgress from '@mui/material/CircularProgress';
+import CollapseComponent from './CollapseComponent';
 
 function Row(props: any) {
   const { row, i, state, page, isFetching } = props;
   const [open, setOpen] = React.useState(false);
   const odd: boolean = i % 2 === 0;
-
-  const converter = (n: number) => {
-    return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
-  };
 
   return (
     <React.Fragment>
@@ -80,116 +77,7 @@ function Row(props: any) {
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
           <Collapse in={open} timeout='auto' unmountOnExit>
-            <Box sx={{ margin: 1 }}>
-              <Typography variant='h6' gutterBottom component='div'>
-                Alamat
-              </Typography>
-              <Typography
-                sx={{
-                  padding: '0px 0px',
-                  fontSize: '1rem',
-                }}
-              >
-                {row.address}
-              </Typography>
-              <Toolbar />
-              <Typography variant='h6'>Pesanan</Typography>
-              <Table size='small' aria-label='purchases'>
-                <TableHead>
-                  <TableRow>
-                    <TableCell>Nama</TableCell>
-                    <TableCell>Harga</TableCell>
-                    <TableCell align='left'>Jumlah</TableCell>
-                    <TableCell align='left'>Total price (IDR)</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {row?.order.map((historyRow: any) => (
-                    <TableRow key={historyRow.id}>
-                      <TableCell
-                        sx={{
-                          fontSize: '1rem',
-                        }}
-                        component='th'
-                        scope='row'
-                      >
-                        {historyRow.name}
-                      </TableCell>
-                      <TableCell
-                        sx={{
-                          fontSize: '1rem',
-                        }}
-                      >
-                        Rp.{converter(historyRow.price)}
-                      </TableCell>
-                      <TableCell
-                        sx={{
-                          fontSize: '1rem',
-                        }}
-                        align='left'
-                      >
-                        {historyRow.amount}
-                      </TableCell>
-                      <TableCell
-                        align='right'
-                        sx={{
-                          fontSize: '1rem',
-                        }}
-                      >
-                        Rp.{converter(historyRow.amount * historyRow.price)}
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                  <TableRow>
-                    <TableCell rowSpan={3} />
-                    <TableCell
-                      sx={{ height: '20px', border: 'none' }}
-                    ></TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell
-                      sx={{
-                        fontSize: '1rem',
-                      }}
-                      colSpan={2}
-                    >
-                      Subtotal
-                    </TableCell>
-                    <TableCell
-                      sx={{
-                        fontSize: '1rem',
-                      }}
-                      align='right'
-                    >
-                      Rp.
-                      {converter(
-                        row?.order.reduce((acc: any, e: any) => {
-                          return e.price * e.amount + acc;
-                        }, 0)
-                      )}
-                    </TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell
-                      sx={{
-                        fontSize: '1rem',
-                      }}
-                    >
-                      Ongkir
-                    </TableCell>
-                    <TableCell></TableCell>
-                    <TableCell
-                      sx={{
-                        fontSize: '1rem',
-                      }}
-                      align='right'
-                    >
-                      Rp. 0
-                    </TableCell>
-                  </TableRow>
-                </TableBody>
-              </Table>
-            </Box>
+            <CollapseComponent row={row} />
           </Collapse>
         </TableCell>
       </TableRow>
