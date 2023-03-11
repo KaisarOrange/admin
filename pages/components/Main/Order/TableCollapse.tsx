@@ -36,7 +36,7 @@ export default function CollapsibleTable({
       sx={{ maxWidth: { lg: '80vw' }, margin: 'auto' }}
       component={Paper}
     >
-      <Table sx={{ minWidth: '440px' }} aria-label='collapsible table'>
+      <Table aria-label='collapsible table'>
         <TableHead sx={{ backgroundColor: '#dbae30' }}>
           <TableRow>
             <TableCell />
