@@ -14,11 +14,15 @@ import converter from './functions/converter';
 function CollapseComponent({ row }: any) {
   return (
     <Box sx={{ marginTop: 1 }}>
-      <Typography sx={{ fontSize: '0.9rem', padding: '10px' }}>
-        {row.name}
+      <Typography
+        sx={{ fontSize: '0.9rem', padding: '10px', fontWeight: '600' }}
+      >
+        Nama: {row.name}
       </Typography>
-      <Typography sx={{ fontSize: '0.9rem', padding: '10px' }}>
-        {row.number}
+      <Typography
+        sx={{ fontSize: '0.9rem', padding: '10px', fontWeight: '600' }}
+      >
+        Hp : {row.number}
       </Typography>
       <Typography
         sx={{ fontSize: '1rem', padding: '10px' }}
