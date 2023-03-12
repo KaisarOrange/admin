@@ -14,8 +14,14 @@ import converter from './functions/converter';
 function CollapseComponent({ row }: any) {
   return (
     <Box sx={{ marginTop: 1 }}>
+      <Typography sx={{ fontSize: '0.9rem', padding: '10px' }}>
+        {row.name}
+      </Typography>
+      <Typography sx={{ fontSize: '0.9rem', padding: '10px' }}>
+        {row.number}
+      </Typography>
       <Typography
-        sx={{ fontSize: '1rem' }}
+        sx={{ fontSize: '1rem', padding: '10px' }}
         variant='h6'
         gutterBottom
         component='div'
@@ -24,7 +30,7 @@ function CollapseComponent({ row }: any) {
       </Typography>
       <Typography
         sx={{
-          padding: '0px 0px',
+          padding: '0px 10px',
           fontSize: '0.8rem',
         }}
       >
@@ -32,7 +38,7 @@ function CollapseComponent({ row }: any) {
       </Typography>
       <Toolbar />
       <Typography
-        sx={{ fontSize: '1rem' }}
+        sx={{ fontSize: '1rem', padding: '10px' }}
         variant='h6'
         gutterBottom
         component='div'
@@ -43,7 +49,7 @@ function CollapseComponent({ row }: any) {
         return (
           <Typography
             sx={{
-              padding: '0px 0px',
+              padding: '0px 10px',
               fontSize: '0.8rem',
             }}
           >
@@ -52,19 +58,23 @@ function CollapseComponent({ row }: any) {
         );
       })}
       <Toolbar />
-      <Typography sx={{ fontSize: '1rem' }} variant='h6'>
+      {/* <Typography sx={{ fontSize: '1rem' }} variant='h6'>
         Pesanan
-      </Typography>
+      </Typography> */}
       <Table size='small' aria-label='purchases'>
         <TableHead>
           <TableRow>
-            <TableCell sx={{ fontSize: '0.8rem' }}>Nama</TableCell>
-            <TableCell sx={{ fontSize: '0.8rem' }}>Harga</TableCell>
-            <TableCell sx={{ fontSize: '0.8rem' }} align='left'>
+            <TableCell sx={{ fontSize: '0.8rem', padding: '0' }}>
+              Pesanan
+            </TableCell>
+            <TableCell sx={{ fontSize: '0.8rem', padding: '0' }}>
+              Harga
+            </TableCell>
+            <TableCell sx={{ fontSize: '0.8rem', padding: '0' }}>
               Jumlah
             </TableCell>
-            <TableCell sx={{ fontSize: '0.8rem' }} align='left'>
-              Total price (IDR)
+            <TableCell sx={{ fontSize: '0.8rem', padding: '0' }} align='center'>
+              Total price
             </TableCell>
           </TableRow>
         </TableHead>

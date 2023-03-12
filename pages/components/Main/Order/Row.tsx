@@ -70,7 +70,11 @@ function Row(props: any) {
         </TableCell>
       </TableRow>
       <TableRow>
-        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={12}>
+        <TableCell
+          sx={{ padding: '0' }}
+          style={{ paddingBottom: 0, paddingTop: 0 }}
+          colSpan={12}
+        >
           <Collapse in={open} timeout='auto' unmountOnExit>
             <CollapseComponent row={row} />
           </Collapse>
