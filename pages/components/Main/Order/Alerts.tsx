@@ -72,7 +72,7 @@ export default function AlertDialog(props: {
   return (
     <div>
       <Button
-        sx={{ fontSize: '0.6rem' }}
+        sx={{ fontSize: { xs: '0.6rem', sm: '0.9rem' } }}
         variant='outlined'
         onClick={handleClickOpen}
       >

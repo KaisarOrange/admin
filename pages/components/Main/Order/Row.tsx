@@ -34,7 +34,7 @@ function Row(props: any) {
           sx={{
             padding: '0px 0px',
             flexShrink: '1',
-            fontSize: '0.8rem',
+            fontSize: { xs: '0.8rem', sm: '1rem' },
             whiteSpace: 'nowrap',
             overflow: 'hidden',
             textOverflow: 'ellipsis',
@@ -48,9 +48,9 @@ function Row(props: any) {
         <TableCell
           sx={{
             padding: '0px 0px',
-            fontSize: '0.8rem',
+            fontSize: { xs: '0.8rem', sm: '1rem' },
           }}
-          align='left'
+          align='center'
         >
           {row.number}
         </TableCell>
