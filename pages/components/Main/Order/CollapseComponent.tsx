@@ -30,7 +30,7 @@ function CollapseComponent({ row }: any) {
         gutterBottom
         component='div'
       >
-        Alamat
+        Alamat:
       </Typography>
       <Typography
         sx={{
@@ -47,7 +47,7 @@ function CollapseComponent({ row }: any) {
         gutterBottom
         component='div'
       >
-        Catatan
+        Catatan:
       </Typography>
       {row?.note?.map((e: any, i: number) => {
         return (
