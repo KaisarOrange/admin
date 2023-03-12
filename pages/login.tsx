@@ -24,7 +24,6 @@ function Login() {
     watch,
     formState: { errors },
   } = useForm<input>();
-  const [email, setEmail] = useState('');
 
   const [signInWithEmailAndPassword] = useSignInWithEmailAndPassword(auth);
 

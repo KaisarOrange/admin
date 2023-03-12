@@ -42,7 +42,7 @@ export default function CollapsibleTable({
             <TableCell />
             <TableCell align='left'>Nama</TableCell>
             <TableCell align='left'>Hp</TableCell>
-            <TableCell align='left'>Alamat</TableCell>
+            {/* <TableCell align='left'>Alamat</TableCell> */}
             <TableCell align='left'></TableCell>
           </TableRow>
         </TableHead>

@@ -1,23 +1,32 @@
+import { getOrder } from '@/pages/api/itemsCall';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Table from '@mui/material/Table';
 import Toolbar from '@mui/material/Toolbar';
+import { useQuery } from '@tanstack/react-query';
 import dynamic from 'next/dynamic';
 import React from 'react';
 import Main from './Main';
 
-function MainComponent({
-  orderDataDoneQuery,
-  orderDataQuery,
-  state,
-  page,
-  setPage,
-  isFetching,
-  open,
-  setState,
-}: any) {
+function MainComponent({ state, page, setPage, open, setState }: any) {
   const Table = dynamic(() => import('./Order/TableCollapse'), {
     ssr: false,
+  });
+
+  const { data: orderDataQuery, isLoading: isFetching } = useQuery({
+    queryKey: ['row', page],
+    queryFn: () => {
+      return getOrder(page, 'order');
+    },
+    initialData: [],
+  });
+
+  const { data: orderDataDoneQuery } = useQuery({
+    queryKey: ['rowDone', page],
+    queryFn: () => {
+      return getOrder(page, 'done');
+    },
+    initialData: [],
   });
   return (
     <Main open={open}>

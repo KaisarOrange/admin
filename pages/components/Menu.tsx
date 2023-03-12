@@ -32,21 +32,6 @@ function Menu({ orderData, doneData, hello }: any) {
 
   const [user, loading, error] = useAuthState(auth);
 
-  const { data: orderDataQuery, isLoading: isFetching } = useQuery({
-    queryKey: ['row', page],
-    queryFn: () => {
-      return getOrder(page, 'order');
-    },
-    initialData: [],
-  });
-
-  const { data: orderDataDoneQuery } = useQuery({
-    queryKey: ['rowDone', page],
-    queryFn: () => {
-      return getOrder(page, 'done');
-    },
-    initialData: [],
-  });
   // { enabled: Boolean(user) }
 
   return (
@@ -106,10 +91,7 @@ function Menu({ orderData, doneData, hello }: any) {
         setPage={setPage}
         setState={setState}
         state={state}
-        orderDataQuery={orderDataQuery}
-        orderDataDoneQuery={orderDataDoneQuery}
         page={page}
-        isFetching={isFetching}
         open={open}
       />
     </Box>
