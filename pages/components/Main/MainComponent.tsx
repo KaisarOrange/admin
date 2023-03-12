@@ -98,6 +98,7 @@ function MainComponent({ state, page, setPage, open, setState }: any) {
       >
         {' '}
         <Button
+          sx={{ fontSize: '0.6rem' }}
           disabled={state === 1}
           onClick={() => {
             setState(1);
@@ -109,6 +110,7 @@ function MainComponent({ state, page, setPage, open, setState }: any) {
           New
         </Button>
         <Button
+          sx={{ fontSize: '0.6rem' }}
           disabled={state === 2}
           onClick={() => {
             setState(2);

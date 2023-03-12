@@ -33,6 +33,12 @@ function Row(props: any) {
         <TableCell
           sx={{
             padding: '0px 0px',
+            flexShrink: '1',
+            fontSize: '0.8rem',
+            whiteSpace: 'nowrap',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            maxWidth: '8vh',
           }}
           component='th'
           scope='row'
@@ -42,6 +48,7 @@ function Row(props: any) {
         <TableCell
           sx={{
             padding: '0px 0px',
+            fontSize: '0.8rem',
           }}
           align='left'
         >
@@ -63,7 +70,7 @@ function Row(props: any) {
         </TableCell>
       </TableRow>
       <TableRow>
-        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
+        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={12}>
           <Collapse in={open} timeout='auto' unmountOnExit>
             <CollapseComponent row={row} />
           </Collapse>

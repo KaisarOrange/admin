@@ -5,15 +5,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import {
-  collection,
-  doc,
-  setDoc,
-  deleteDoc,
-  getDocs,
-  query,
-  limit,
-} from 'firebase/firestore';
+import { collection, doc, setDoc, deleteDoc } from 'firebase/firestore';
 import { db } from '@/firebaseConfig';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { getOrder } from '@/pages/api/itemsCall';
@@ -79,7 +71,11 @@ export default function AlertDialog(props: {
 
   return (
     <div>
-      <Button variant='outlined' onClick={handleClickOpen}>
+      <Button
+        sx={{ fontSize: '0.6rem' }}
+        variant='outlined'
+        onClick={handleClickOpen}
+      >
         {props.state < 2 ? 'Selesai' : 'batal'}
       </Button>
       <Dialog

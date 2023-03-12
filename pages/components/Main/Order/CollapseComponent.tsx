@@ -13,20 +13,30 @@ import converter from './functions/converter';
 
 function CollapseComponent({ row }: any) {
   return (
-    <Box sx={{ margin: 1 }}>
-      <Typography variant='h6' gutterBottom component='div'>
+    <Box sx={{ marginTop: 1 }}>
+      <Typography
+        sx={{ fontSize: '1rem' }}
+        variant='h6'
+        gutterBottom
+        component='div'
+      >
         Alamat
       </Typography>
       <Typography
         sx={{
           padding: '0px 0px',
-          fontSize: '1rem',
+          fontSize: '0.8rem',
         }}
       >
         {row.address}
       </Typography>
       <Toolbar />
-      <Typography variant='h6' gutterBottom component='div'>
+      <Typography
+        sx={{ fontSize: '1rem' }}
+        variant='h6'
+        gutterBottom
+        component='div'
+      >
         Catatan
       </Typography>
       {row?.note?.map((e: any, i: number) => {
@@ -34,7 +44,7 @@ function CollapseComponent({ row }: any) {
           <Typography
             sx={{
               padding: '0px 0px',
-              fontSize: '1rem',
+              fontSize: '0.8rem',
             }}
           >
             {i + 1}. {e.name}: {e.text}
@@ -42,38 +52,38 @@ function CollapseComponent({ row }: any) {
         );
       })}
       <Toolbar />
-      <Typography variant='h6'>Pesanan</Typography>
+      <Typography sx={{ fontSize: '1rem' }} variant='h6'>
+        Pesanan
+      </Typography>
       <Table size='small' aria-label='purchases'>
         <TableHead>
           <TableRow>
-            <TableCell>Nama</TableCell>
-            <TableCell>Harga</TableCell>
-            <TableCell align='left'>Jumlah</TableCell>
-            <TableCell align='left'>Total price (IDR)</TableCell>
+            <TableCell sx={{ fontSize: '0.8rem' }}>Nama</TableCell>
+            <TableCell sx={{ fontSize: '0.8rem' }}>Harga</TableCell>
+            <TableCell sx={{ fontSize: '0.8rem' }} align='left'>
+              Jumlah
+            </TableCell>
+            <TableCell sx={{ fontSize: '0.8rem' }} align='left'>
+              Total price (IDR)
+            </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {row?.order.map((historyRow: any) => (
             <TableRow key={historyRow.id}>
-              <TableCell
-                sx={{
-                  fontSize: '1rem',
-                }}
-                component='th'
-                scope='row'
-              >
+              <TableCell sx={{ fontSize: '0.8rem' }} component='th' scope='row'>
                 {historyRow.name}
               </TableCell>
               <TableCell
                 sx={{
-                  fontSize: '1rem',
+                  fontSize: '0.8rem',
                 }}
               >
                 Rp.{converter(historyRow.price)}
               </TableCell>
               <TableCell
                 sx={{
-                  fontSize: '1rem',
+                  fontSize: '0.8rem',
                 }}
                 align='left'
               >
@@ -82,7 +92,7 @@ function CollapseComponent({ row }: any) {
               <TableCell
                 align='right'
                 sx={{
-                  fontSize: '1rem',
+                  fontSize: '0.8rem',
                 }}
               >
                 Rp.{converter(historyRow.amount * historyRow.price)}
@@ -96,7 +106,7 @@ function CollapseComponent({ row }: any) {
           <TableRow>
             <TableCell
               sx={{
-                fontSize: '1rem',
+                fontSize: '0.8rem',
               }}
               colSpan={2}
             >
@@ -104,7 +114,7 @@ function CollapseComponent({ row }: any) {
             </TableCell>
             <TableCell
               sx={{
-                fontSize: '1rem',
+                fontSize: '0.8rem',
               }}
               align='right'
             >
@@ -119,7 +129,7 @@ function CollapseComponent({ row }: any) {
           <TableRow>
             <TableCell
               sx={{
-                fontSize: '1rem',
+                fontSize: '0.8rem',
               }}
             >
               Ongkir
@@ -127,7 +137,7 @@ function CollapseComponent({ row }: any) {
             <TableCell></TableCell>
             <TableCell
               sx={{
-                fontSize: '1rem',
+                fontSize: '0.8rem',
               }}
               align='right'
             >

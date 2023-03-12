@@ -8,6 +8,7 @@ import {
 } from '@tanstack/react-query';
 import RouterGuard from './components/RouterGuard';
 import { Analytics } from '@vercel/analytics/react';
+import { createTheme, ThemeProvider } from '@mui/material';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -18,14 +19,27 @@ const queryClient = new QueryClient({
 });
 
 export default function App({ Component, pageProps }: AppProps) {
+  const theme = createTheme({
+    breakpoints: {
+      values: {
+        xs: 0,
+        sm: 370,
+        md: 960,
+        lg: 1280,
+        xl: 1920,
+      },
+    },
+  });
   return (
-    <QueryClientProvider client={queryClient}>
-      <Hydrate state={pageProps.dehydratedState}>
-        <RouterGuard>
-          <Component {...pageProps} />
-        </RouterGuard>
-      </Hydrate>
-      <Analytics />
-    </QueryClientProvider>
+    <ThemeProvider theme={theme}>
+      <QueryClientProvider client={queryClient}>
+        <Hydrate state={pageProps.dehydratedState}>
+          <RouterGuard>
+            <Component {...pageProps} />
+          </RouterGuard>
+        </Hydrate>
+        <Analytics />
+      </QueryClientProvider>
+    </ThemeProvider>
   );
 }
