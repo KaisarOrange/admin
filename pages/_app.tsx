@@ -6,7 +6,7 @@ import {
   useQuery,
   Hydrate,
 } from '@tanstack/react-query';
-import RouterGuard from './components/RouterGuard';
+import RouterGuard from '../components/RouterGuard';
 import { Analytics } from '@vercel/analytics/react';
 import { createTheme, ThemeProvider } from '@mui/material';
 

@@ -1,16 +1,12 @@
-import { auth, db } from '@/firebaseConfig';
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import { collection, getDocs, limit, query } from 'firebase/firestore';
 import React, { useEffect } from 'react';
-import { useAuthState } from 'react-firebase-hooks/auth';
-import Menu from './components/Menu';
+import Menu from '../components/Menu';
 
-function Index({ orderData, doneData, hello }: any) {
+function Index() {
   useEffect(() => {}, []);
 
   return (
     <>
-      <Menu orderData={orderData} doneData={doneData} hello={hello} />
+      <Menu />
       {/* <Menu orderData={orderData} doneData={doneData} hello={hello} /> */}
     </>
   );

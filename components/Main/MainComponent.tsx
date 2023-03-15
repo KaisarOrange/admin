@@ -123,9 +123,8 @@ function MainComponent({ state, page, setPage, open, setState }: any) {
         </Button>
       </Box>
 
-      {/* <BasicTable data={orderData} /> */}
       <Box sx={{ flexGrow: 1, bgcolor: 'background.default', p: 3 }}></Box>
-      {/* <Button onClick={() => signOutt()}>Test</Button> */}
+      <Button onClick={() => console.log(orderDataDoneQuery)}>Test</Button>
     </Main>
   );
 }

@@ -15,7 +15,7 @@ export default function AlertDialog(props: {
   data: any;
   page: number;
 }) {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState<boolean>(false);
 
   const handleClickOpen = () => {
     setOpen(true);

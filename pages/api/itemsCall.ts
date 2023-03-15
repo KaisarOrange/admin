@@ -1,4 +1,5 @@
 import { db } from '@/firebaseConfig';
+import dataType from '@/utils/interfaces/data';
 import {
   collection,
   getDocs,
@@ -17,7 +18,10 @@ let prevLastDoneOrderdoc: any;
 let currentPage: number = 0;
 let itemCount: number = 0;
 
-const getOrder = async (page: number = 0, path: string) => {
+const getOrder = async (
+  page: number = 0,
+  path: string
+): Promise<dataType[]> => {
   if (page === 0) {
     currentPage = 0;
   }
@@ -50,7 +54,11 @@ const getOrder = async (page: number = 0, path: string) => {
       itemCount += 1;
 
       return {
-        ...doc.data(),
+        name: doc.data().name,
+        address: doc.data().address,
+        number: doc.data().number,
+        note: doc.data().note,
+        order: doc.data().order,
         id: doc.id,
         isItemExist: isItemExist,
         isLastItemExist: isLastItemExist,
@@ -86,7 +94,11 @@ const getOrder = async (page: number = 0, path: string) => {
       itemCount += 1;
 
       return {
-        ...doc.data(),
+        name: doc.data().name,
+        address: doc.data().address,
+        number: doc.data().number,
+        note: doc.data().note,
+        order: doc.data().order,
         id: doc.id,
         isItemExist: isItemExist,
         isLastItemExist: isLastItemExist,
@@ -120,7 +132,11 @@ const getOrder = async (page: number = 0, path: string) => {
       itemCount += 1;
 
       return {
-        ...doc.data(),
+        name: doc.data().name,
+        address: doc.data().address,
+        number: doc.data().number,
+        note: doc.data().note,
+        order: doc.data().order,
         id: doc.id,
         isItemExist: isItemExist,
         isLastItemExist: isLastItemExist,

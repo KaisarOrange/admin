@@ -15,22 +15,15 @@ import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 import Inbox from '@mui/icons-material/Inbox';
-import { useQuery } from '@tanstack/react-query';
-import { getOrder } from '../api/itemsCall';
-import { auth } from '@/firebaseConfig';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import AppBar from './Main/AppBar';
-import { useAuthState } from 'react-firebase-hooks/auth';
-import { signOut } from 'firebase/auth';
 import MainComponent from './Main/MainComponent';
 
-function Menu({ orderData, doneData, hello }: any) {
+function Menu() {
   const [state, setState]: any = useState<number>(1);
   const [open, setOpen] = useState<boolean>(false);
   const [page, setPage] = useState<number>(0);
   const [menuPage, setMenuPage] = useState<number>(0);
-
-  const [user, loading, error] = useAuthState(auth);
 
   // { enabled: Boolean(user) }
 

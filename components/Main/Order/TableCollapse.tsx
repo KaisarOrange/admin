@@ -1,21 +1,15 @@
 import Box from '@mui/material/Box';
 import * as React from 'react';
-import Collapse from '@mui/material/Collapse';
-import IconButton from '@mui/material/IconButton';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import { Button, Divider, Toolbar } from '@mui/material';
-import AlertDialog from './Alerts';
-import CircularProgress from '@mui/material/CircularProgress';
+
 import Row from './Row';
+import CollapseProps from '@/utils/interfaces/CollapseProps';
 
 export default function CollapsibleTable({
   data,
@@ -23,13 +17,7 @@ export default function CollapsibleTable({
   state,
   page,
   isFetching,
-}: any) {
-  interface rowData {
-    name: string;
-    number: string;
-    address: string;
-    order: string[];
-  }
+}: CollapseProps) {
   const tableData = state === 1 ? data : dataDone;
   return (
     <TableContainer sx={{ maxWidth: '90vw', margin: 'auto' }} component={Paper}>
@@ -44,7 +32,7 @@ export default function CollapsibleTable({
           </TableRow>
         </TableHead>
         <TableBody>
-          {tableData?.map((row: rowData, i: number) => (
+          {tableData?.map((row, i: number) => (
             <Row
               key={row.name + i.toString()}
               row={row}
