@@ -1,3 +1,4 @@
+import rowType from '@/utils/interfaces/collapseComponentProps';
 import {
   Box,
   Table,
@@ -11,7 +12,7 @@ import {
 import React from 'react';
 import converter from './functions/converter';
 
-function CollapseComponent({ row }: any) {
+function CollapseComponent({ row }: rowType) {
   return (
     <Box sx={{ marginTop: 1 }}>
       <Typography

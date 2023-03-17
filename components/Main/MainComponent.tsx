@@ -1,4 +1,5 @@
 import { getOrder } from '@/pages/api/itemsCall';
+import mainComponentProps from '@/utils/interfaces/mainComponentProps';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Table from '@mui/material/Table';
@@ -8,7 +9,13 @@ import dynamic from 'next/dynamic';
 import React from 'react';
 import Main from './Main';
 
-function MainComponent({ state, page, setPage, open, setState }: any) {
+function MainComponent({
+  state,
+  page,
+  setPage,
+  open,
+  setState,
+}: mainComponentProps) {
   const Table = dynamic(() => import('./Order/TableCollapse'), {
     ssr: false,
   });

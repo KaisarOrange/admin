@@ -7,9 +7,9 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import AlertDialog from './Alerts';
 import CollapseComponent from './CollapseComponent';
+import rowProps from '@/utils/interfaces/rowProps';
 
-function Row(props: any) {
-  const { row, i, state, page, isFetching } = props;
+function Row({ row, i, state, page }: rowProps) {
   const [open, setOpen] = React.useState(false);
   const odd: boolean = i % 2 === 0;
 

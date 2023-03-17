@@ -3,7 +3,6 @@ import type { AppProps } from 'next/app';
 import {
   QueryClient,
   QueryClientProvider,
-  useQuery,
   Hydrate,
 } from '@tanstack/react-query';
 import RouterGuard from '../components/RouterGuard';

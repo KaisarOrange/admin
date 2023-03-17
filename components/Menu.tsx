@@ -20,7 +20,7 @@ import AppBar from './Main/AppBar';
 import MainComponent from './Main/MainComponent';
 
 function Menu() {
-  const [state, setState]: any = useState<number>(1);
+  const [state, setState] = useState<number>(1);
   const [open, setOpen] = useState<boolean>(false);
   const [page, setPage] = useState<number>(0);
   const [menuPage, setMenuPage] = useState<number>(0);

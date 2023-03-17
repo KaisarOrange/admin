@@ -9,10 +9,11 @@ import { collection, doc, setDoc, deleteDoc } from 'firebase/firestore';
 import { db } from '@/firebaseConfig';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { getOrder } from '@/pages/api/itemsCall';
+import dataType from '@/utils/interfaces/data';
 
 export default function AlertDialog(props: {
-  state: any;
-  data: any;
+  state: number;
+  data: dataType;
   page: number;
 }) {
   const [open, setOpen] = useState<boolean>(false);

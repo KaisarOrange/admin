@@ -1,10 +1,11 @@
 import { auth } from '@/firebaseConfig';
+import input from '@/utils/types/inputFormType';
 import { Box, Button, TextField } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
 import { signOut } from 'firebase/auth';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import {
   useAuthState,
   useSignInWithEmailAndPassword,
@@ -12,16 +13,11 @@ import {
 import { useForm } from 'react-hook-form';
 
 function Login() {
-  type input = {
-    email: string;
-    password: string;
-  };
   const router = useRouter();
   const [user, loading] = useAuthState(auth);
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm<input>();
 
@@ -44,7 +40,6 @@ function Login() {
       router.push('/');
     }
   };
-  useEffect(() => {}, []);
 
   return (
     <Box
