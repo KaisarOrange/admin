@@ -8,6 +8,7 @@ import { useQuery } from '@tanstack/react-query';
 import dynamic from 'next/dynamic';
 import React from 'react';
 import Main from './Main';
+import TableCollapse from './Order/TableCollapse';
 
 function MainComponent({
   state,
@@ -21,26 +22,18 @@ function MainComponent({
   });
 
   const { data: orderDataQuery, isLoading: isFetching } = useQuery({
-    queryKey: ['row', page],
+    queryKey: ['customer', page],
     queryFn: () => {
       return getOrder();
     },
     initialData: [],
   });
 
-  const { data: orderDataDoneQuery } = useQuery({
-    queryKey: ['rowDone', page],
-    queryFn: () => {
-      return getOrder();
-    },
-    initialData: [],
-  });
   return (
     <Main open={open}>
       <Toolbar />
-      <Table
+      <TableCollapse
         data={orderDataQuery}
-        dataDone={orderDataDoneQuery}
         state={state}
         page={page}
         isFetching={isFetching}
@@ -63,13 +56,6 @@ function MainComponent({
             setPage((prev: any) => prev - 1);
           }}
           variant='text'
-          disabled={
-            state < 2
-              ? orderDataQuery[0]?.isItemExist === true ||
-                orderDataQuery?.length === 0
-              : orderDataDoneQuery[0]?.isItemExist === true ||
-                orderDataDoneQuery?.length === 0
-          }
           color='warning'
         >
           {'<'}
@@ -83,13 +69,6 @@ function MainComponent({
             setPage((prev: any) => prev + 1);
           }}
           variant='text'
-          disabled={
-            state < 2
-              ? orderDataQuery[orderDataQuery.length - 1]?.isLastItemExist ===
-                  true || orderDataQuery.length === 0
-              : orderDataDoneQuery[orderDataDoneQuery.length - 1]
-                  ?.isLastItemExist === true || orderDataDoneQuery.length === 0
-          }
           color='warning'
         >
           {'>'}
@@ -131,7 +110,6 @@ function MainComponent({
       </Box>
 
       <Box sx={{ flexGrow: 1, bgcolor: 'background.default', p: 3 }}></Box>
-      <Button onClick={() => console.log(orderDataDoneQuery)}>Test</Button>
     </Main>
   );
 }

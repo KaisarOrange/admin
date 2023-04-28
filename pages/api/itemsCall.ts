@@ -6,4 +6,10 @@ const getOrder = async () => {
   return result.data.data;
 };
 
-export { getOrder };
+const getDetail = async () => {
+  const { data } = await axios.get('http://localhost:8500/order/detail');
+
+  return data.data;
+};
+
+export { getOrder, getDetail };

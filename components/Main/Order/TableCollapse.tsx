@@ -13,12 +13,11 @@ import CollapseProps from '@/utils/interfaces/CollapseProps';
 
 export default function CollapsibleTable({
   data,
-  dataDone,
   state,
   page,
   isFetching,
 }: CollapseProps) {
-  const tableData = state === 1 ? data : dataDone;
+  const tableData = data;
   return (
     <TableContainer sx={{ maxWidth: '90vw', margin: 'auto' }} component={Paper}>
       <Table aria-label='collapsible table'>

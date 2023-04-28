@@ -1,6 +1,7 @@
 import rowType from '@/utils/interfaces/collapseComponentProps';
 import {
   Box,
+  Button,
   Table,
   TableBody,
   TableCell,
@@ -9,21 +10,39 @@ import {
   Toolbar,
   Typography,
 } from '@mui/material';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import converter from './functions/converter';
+import axios from 'axios';
+import { useQuery } from '@tanstack/react-query';
+import { getDetail, getOrder } from '@/pages/api/itemsCall';
 
-function CollapseComponent({ row }: rowType) {
+function CollapseComponent({ i }: any) {
+  const { data: detail } = useQuery({
+    queryKey: ['orderDetail'],
+    queryFn: () => {
+      return getDetail();
+    },
+    initialData: [],
+  });
+  const { data: customer } = useQuery({
+    queryKey: ['customer'],
+    queryFn: () => {
+      return getOrder();
+    },
+    initialData: [],
+  });
+
   return (
     <Box sx={{ marginTop: 1 }}>
       <Typography
         sx={{ fontSize: '0.9rem', padding: '10px', fontWeight: '600' }}
       >
-        Nama: {row.name}
+        Nama: {customer[i]?.name}
       </Typography>
       <Typography
         sx={{ fontSize: '0.9rem', padding: '10px', fontWeight: '600' }}
       >
-        Hp : {row.number}
+        HP:{customer[i]?.number}
       </Typography>
       <Typography
         sx={{ fontSize: '1rem', padding: '10px' }}
@@ -39,7 +58,7 @@ function CollapseComponent({ row }: rowType) {
           fontSize: '0.8rem',
         }}
       >
-        {row.address}
+        {customer[i]?.adress}
       </Typography>
       <Toolbar />
       <Typography
@@ -50,7 +69,7 @@ function CollapseComponent({ row }: rowType) {
       >
         Catatan:
       </Typography>
-      {row?.note?.map((e: any, i: number) => {
+      {detail?.note?.map((e: any, i: number) => {
         return (
           <Typography
             sx={{
@@ -84,8 +103,8 @@ function CollapseComponent({ row }: rowType) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {row?.order.map((historyRow: any) => (
-            <TableRow key={historyRow.id}>
+          {detail?.map((historyRow: any, i: number) => (
+            <TableRow key={historyRow.order_id + i}>
               <TableCell sx={{ fontSize: '0.8rem' }} component='th' scope='row'>
                 {historyRow.name}
               </TableCell>
@@ -102,7 +121,7 @@ function CollapseComponent({ row }: rowType) {
                 }}
                 align='left'
               >
-                {historyRow.amount}
+                {historyRow.quantity}
               </TableCell>
               <TableCell
                 align='right'
@@ -110,7 +129,7 @@ function CollapseComponent({ row }: rowType) {
                   fontSize: '0.8rem',
                 }}
               >
-                Rp.{converter(historyRow.amount * historyRow.price)}
+                Rp.{converter(historyRow.quantity * historyRow.price)}
               </TableCell>
             </TableRow>
           ))}
@@ -135,7 +154,7 @@ function CollapseComponent({ row }: rowType) {
             >
               Rp.
               {converter(
-                row?.order.reduce((acc: any, e: any) => {
+                detail?.reduce((acc: any, e: any) => {
                   return e.price * e.amount + acc;
                 }, 0)
               )}

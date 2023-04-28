@@ -8,6 +8,9 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import AlertDialog from './Alerts';
 import CollapseComponent from './CollapseComponent';
 import rowProps from '@/utils/interfaces/rowProps';
+import { useQuery } from '@tanstack/react-query';
+import { getDetail } from '@/pages/api/itemsCall';
+import { Button } from '@mui/material';
 
 function Row({ row, i, state, page }: rowProps) {
   const [open, setOpen] = React.useState(false);
@@ -76,7 +79,7 @@ function Row({ row, i, state, page }: rowProps) {
           colSpan={12}
         >
           <Collapse in={open} timeout='auto' unmountOnExit>
-            <CollapseComponent row={row} />
+            <CollapseComponent i={i} />
           </Collapse>
         </TableCell>
       </TableRow>

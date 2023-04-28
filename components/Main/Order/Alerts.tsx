@@ -29,14 +29,14 @@ export default function AlertDialog(props: {
   const { refetch: refetchRow } = useQuery({
     queryKey: ['row', props.page],
     queryFn: () => {
-      return getOrder(props.page, 'order');
+      return getOrder();
     },
     enabled: false,
   });
   const { refetch: refetchDone } = useQuery({
     queryKey: ['rowDone', props.page],
     queryFn: () => {
-      return getOrder(props.page, 'done');
+      return getOrder();
     },
     enabled: false,
   });
