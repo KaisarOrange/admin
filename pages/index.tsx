@@ -1,39 +1,28 @@
 import React, { useEffect } from 'react';
 import Menu from '../components/Menu';
+import { getOrder } from './api/itemsCall';
 
-function Index() {
+function Index({ orderData }: any) {
   useEffect(() => {}, []);
 
   return (
     <>
-      <Menu />
-      {/* <Menu orderData={orderData} doneData={doneData} hello={hello} /> */}
+      <Menu orderData={orderData} />
     </>
   );
 }
 
 export default Index;
 
-// export async function getStaticProps() {
-//   // Call an external API endpoint to get posts.
-//   // You can use any data fetching library
+export async function getStaticProps() {
+  // Call an external API endpoint to get posts.
+  // You can use any data fetching library
 
-//   const auth = getAuth();
+  const data = await getOrder();
 
-//   const docSnap = await getDocs(query(collection(db, 'order'), limit(2)));
-//   const data = docSnap.docs.map((doc) => {
-//     return { ...doc.data(), id: doc.id };
-//   });
-
-//   const docSnapDone = await getDocs(query(collection(db, 'done'), limit(2)));
-//   const dataDone = docSnapDone.docs.map((doc) => {
-//     return { ...doc.data(), id: doc.id };
-//   });
-
-//   return {
-//     props: {
-//       orderData: data,
-//       doneData: dataDone,
-//     },
-//   };
-// }
+  return {
+    props: {
+      orderData: data,
+    },
+  };
+}

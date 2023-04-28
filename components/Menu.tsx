@@ -19,7 +19,7 @@ import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import AppBar from './Main/AppBar';
 import MainComponent from './Main/MainComponent';
 
-function Menu() {
+function Menu({ orderData }: any) {
   const [state, setState] = useState<number>(1);
   const [open, setOpen] = useState<boolean>(false);
   const [page, setPage] = useState<number>(0);

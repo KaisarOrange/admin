@@ -23,7 +23,7 @@ function MainComponent({
   const { data: orderDataQuery, isLoading: isFetching } = useQuery({
     queryKey: ['row', page],
     queryFn: () => {
-      return getOrder(page, 'order');
+      return getOrder();
     },
     initialData: [],
   });
@@ -31,7 +31,7 @@ function MainComponent({
   const { data: orderDataDoneQuery } = useQuery({
     queryKey: ['rowDone', page],
     queryFn: () => {
-      return getOrder(page, 'done');
+      return getOrder();
     },
     initialData: [],
   });
