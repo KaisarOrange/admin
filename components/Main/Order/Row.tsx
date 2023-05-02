@@ -79,7 +79,7 @@ function Row({ row, i, state, page }: rowProps) {
           colSpan={12}
         >
           <Collapse in={open} timeout='auto' unmountOnExit>
-            <CollapseComponent i={i} />
+            <CollapseComponent i={i} id={row.id} />
           </Collapse>
         </TableCell>
       </TableRow>

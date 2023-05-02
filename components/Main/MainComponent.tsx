@@ -9,6 +9,7 @@ import dynamic from 'next/dynamic';
 import React from 'react';
 import Main from './Main';
 import TableCollapse from './Order/TableCollapse';
+import axios from 'axios';
 
 function MainComponent({
   state,
@@ -20,6 +21,22 @@ function MainComponent({
   const Table = dynamic(() => import('./Order/TableCollapse'), {
     ssr: false,
   });
+
+  const getUser = async () => {
+    try {
+      const result = await axios.get('http://localhost:8500/auth/user', {
+        withCredentials: true,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const logOut = async () => {
+    const ax = await axios.delete('http://localhost:8500/auth/logout', {
+      withCredentials: true,
+    });
+    console.log(ax);
+  };
 
   const { data: orderDataQuery, isLoading: isFetching } = useQuery({
     queryKey: ['customer', page],
@@ -85,10 +102,8 @@ function MainComponent({
         {' '}
         <Button
           sx={{ fontSize: '0.6rem' }}
-          disabled={state === 1}
           onClick={() => {
-            setState(1);
-            setPage(0);
+            getUser();
           }}
           variant='contained'
           color='success'
@@ -99,8 +114,7 @@ function MainComponent({
           sx={{ fontSize: '0.6rem' }}
           disabled={state === 2}
           onClick={() => {
-            setState(2);
-            setPage(0);
+            logOut();
           }}
           variant='contained'
           color='error'

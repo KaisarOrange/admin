@@ -6,8 +6,10 @@ const getOrder = async () => {
   return result.data.data;
 };
 
-const getDetail = async () => {
-  const { data } = await axios.get('http://localhost:8500/order/detail');
+const getDetail = async (customer_id: any) => {
+  const { data } = await axios.get(
+    `http://localhost:8500/order/detail/${customer_id}`
+  );
 
   return data.data;
 };

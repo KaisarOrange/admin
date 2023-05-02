@@ -16,14 +16,15 @@ import axios from 'axios';
 import { useQuery } from '@tanstack/react-query';
 import { getDetail, getOrder } from '@/pages/api/itemsCall';
 
-function CollapseComponent({ i }: any) {
+function CollapseComponent({ i, id }: any) {
   const { data: detail } = useQuery({
     queryKey: ['orderDetail'],
     queryFn: () => {
-      return getDetail();
+      return getDetail(id);
     },
     initialData: [],
   });
+
   const { data: customer } = useQuery({
     queryKey: ['customer'],
     queryFn: () => {
@@ -60,27 +61,7 @@ function CollapseComponent({ i }: any) {
       >
         {customer[i]?.adress}
       </Typography>
-      <Toolbar />
-      <Typography
-        sx={{ fontSize: '1rem', padding: '10px' }}
-        variant='h6'
-        gutterBottom
-        component='div'
-      >
-        Catatan:
-      </Typography>
-      {detail?.note?.map((e: any, i: number) => {
-        return (
-          <Typography
-            sx={{
-              padding: '0px 10px',
-              fontSize: '0.8rem',
-            }}
-          >
-            {i + 1}. {e.name}: {e.text}
-          </Typography>
-        );
-      })}
+
       <Toolbar />
       {/* <Typography sx={{ fontSize: '1rem' }} variant='h6'>
         Pesanan
@@ -92,13 +73,16 @@ function CollapseComponent({ i }: any) {
               Pesanan
             </TableCell>
             <TableCell sx={{ fontSize: '0.8rem', padding: '0' }}>
+              Catatan
+            </TableCell>
+            <TableCell sx={{ fontSize: '0.8rem', padding: '0' }}>
               Harga
             </TableCell>
             <TableCell sx={{ fontSize: '0.8rem', padding: '0' }}>
               Jumlah
             </TableCell>
             <TableCell sx={{ fontSize: '0.8rem', padding: '0' }} align='center'>
-              Total price
+              Price
             </TableCell>
           </TableRow>
         </TableHead>
@@ -107,6 +91,9 @@ function CollapseComponent({ i }: any) {
             <TableRow key={historyRow.order_id + i}>
               <TableCell sx={{ fontSize: '0.8rem' }} component='th' scope='row'>
                 {historyRow.name}
+              </TableCell>
+              <TableCell sx={{ fontSize: '0.8rem' }} component='th' scope='row'>
+                {historyRow.note}
               </TableCell>
               <TableCell
                 sx={{
@@ -144,7 +131,7 @@ function CollapseComponent({ i }: any) {
               }}
               colSpan={2}
             >
-              Subtotal
+              Total price
             </TableCell>
             <TableCell
               sx={{
@@ -155,7 +142,7 @@ function CollapseComponent({ i }: any) {
               Rp.
               {converter(
                 detail?.reduce((acc: any, e: any) => {
-                  return e.price * e.amount + acc;
+                  return e.price * e.quantity + acc;
                 }, 0)
               )}
             </TableCell>
