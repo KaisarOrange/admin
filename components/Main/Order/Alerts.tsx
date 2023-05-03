@@ -8,12 +8,12 @@ import DialogTitle from '@mui/material/DialogTitle';
 import { collection, doc, setDoc, deleteDoc } from 'firebase/firestore';
 import { db } from '@/firebaseConfig';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { getOrder } from '@/pages/api/itemsCall';
+import { finishOrder, getOrder } from '@/pages/api/itemsCall';
 import dataType from '@/utils/interfaces/data';
 
 export default function AlertDialog(props: {
   state: number;
-  data: dataType;
+  data: any;
   page: number;
 }) {
   const [open, setOpen] = useState<boolean>(false);
@@ -43,24 +43,8 @@ export default function AlertDialog(props: {
 
   const mutation = useMutation({
     mutationFn: async () => {
-      const newCityRef = doc(
-        collection(db, props.state < 2 ? 'done' : 'order')
-      );
-      await setDoc(newCityRef, props.data);
-      const newCityRefa = doc(
-        db,
-        props.state < 2 ? 'order' : 'done',
-        props?.data.id
-      );
+      finishOrder(props.data.order_id);
 
-      await deleteDoc(newCityRefa);
-      // deleteDoc(newCityRefa)
-      //   .then(() => {
-      //     console.log('Entire Document has been deleted successfully.');
-      //   })
-      //   .catch((error) => {
-      //     console.log(error);
-      //   });
       handleClose();
     },
   });

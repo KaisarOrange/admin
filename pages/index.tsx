@@ -1,28 +1,14 @@
 import React, { useEffect } from 'react';
 import Menu from '../components/Menu';
-import { getOrder } from './api/itemsCall';
+import { getOrder, getUser } from './api/itemsCall';
+import { useQuery } from '@tanstack/react-query';
 
-function Index({ orderData }: any) {
-  useEffect(() => {}, []);
-
+function Index() {
   return (
     <>
-      <Menu orderData={orderData} />
+      <Menu />
     </>
   );
 }
 
 export default Index;
-
-export async function getStaticProps() {
-  // Call an external API endpoint to get posts.
-  // You can use any data fetching library
-
-  const data = await getOrder();
-
-  return {
-    props: {
-      orderData: data,
-    },
-  };
-}

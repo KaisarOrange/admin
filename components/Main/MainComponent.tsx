@@ -1,4 +1,4 @@
-import { getOrder } from '@/pages/api/itemsCall';
+import { getFinishOrder, getOrder } from '@/pages/api/itemsCall';
 import mainComponentProps from '@/utils/interfaces/mainComponentProps';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -6,18 +6,15 @@ import Table from '@mui/material/Table';
 import Toolbar from '@mui/material/Toolbar';
 import { useQuery } from '@tanstack/react-query';
 import dynamic from 'next/dynamic';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Main from './Main';
 import TableCollapse from './Order/TableCollapse';
 import axios from 'axios';
 
-function MainComponent({
-  state,
-  page,
-  setPage,
-  open,
-  setState,
-}: mainComponentProps) {
+function MainComponent({ open }: mainComponentProps) {
+  const [state, setState] = useState<number>(1);
+  const [page, setPage] = useState<number>(0);
+
   const Table = dynamic(() => import('./Order/TableCollapse'), {
     ssr: false,
   });
@@ -31,12 +28,6 @@ function MainComponent({
       console.log(error);
     }
   };
-  const logOut = async () => {
-    const ax = await axios.delete('http://localhost:8500/auth/logout', {
-      withCredentials: true,
-    });
-    console.log(ax);
-  };
 
   const { data: orderDataQuery, isLoading: isFetching } = useQuery({
     queryKey: ['customer', page],
@@ -46,11 +37,19 @@ function MainComponent({
     initialData: [],
   });
 
+  const { data: finishOrder } = useQuery({
+    queryKey: ['finish', page],
+    queryFn: () => {
+      return getFinishOrder();
+    },
+    initialData: [],
+  });
+
   return (
     <Main open={open}>
       <Toolbar />
       <TableCollapse
-        data={orderDataQuery}
+        data={state === 1 ? orderDataQuery : finishOrder}
         state={state}
         page={page}
         isFetching={isFetching}
@@ -70,7 +69,7 @@ function MainComponent({
             fontWeight: 'bold',
           }}
           onClick={() => {
-            setPage((prev: any) => prev - 1);
+            console.log(orderDataQuery);
           }}
           variant='text'
           color='warning'
@@ -102,8 +101,9 @@ function MainComponent({
         {' '}
         <Button
           sx={{ fontSize: '0.6rem' }}
+          disabled={state === 1}
           onClick={() => {
-            getUser();
+            setState(1);
           }}
           variant='contained'
           color='success'
@@ -114,7 +114,7 @@ function MainComponent({
           sx={{ fontSize: '0.6rem' }}
           disabled={state === 2}
           onClick={() => {
-            logOut();
+            setState(2);
           }}
           variant='contained'
           color='error'

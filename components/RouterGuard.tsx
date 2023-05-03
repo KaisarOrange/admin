@@ -1,4 +1,5 @@
 import { auth } from '@/firebaseConfig';
+import { getUser } from '@/pages/api/itemsCall';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { useRouter } from 'next/router';
@@ -12,18 +13,10 @@ function RouterGuard({ children }: any) {
 
   const { data: user, isLoading } = useQuery({
     queryKey: ['user'],
-    queryFn: async () => {
-      try {
-        const result = await axios.get('http://localhost:8500/auth/user', {
-          withCredentials: true,
-        });
-
-        return result.data;
-      } catch (error) {
-        console.log(error);
-      }
+    queryFn: () => {
+      return getUser();
     },
-    refetchInterval: 1000,
+    //  refetchInterval: 1000,
   });
 
   useEffect(() => {

@@ -9,24 +9,20 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { getUser } from './api/itemsCall';
 
 function Login() {
   const router = useRouter();
 
   const [loading, setLoading] = useState(false);
 
+  //------------------------ REACT QUERY -------------------------------------
   const { data: user, isLoading } = useQuery({
     queryKey: ['user'],
-    queryFn: async () => {
-      try {
-        const result = await axios.get('http://localhost:8500/auth/user', {
-          withCredentials: true,
-        });
-        return result.data;
-      } catch (error) {
-        console.log(error);
-      }
+    queryFn: () => {
+      return getUser();
     },
+    //  refetchInterval: 1000,
   });
 
   const {

@@ -1,5 +1,6 @@
 import {
   Box,
+  Button,
   Divider,
   Drawer,
   List,
@@ -18,15 +19,23 @@ import Inbox from '@mui/icons-material/Inbox';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import AppBar from './Main/AppBar';
 import MainComponent from './Main/MainComponent';
+import axios from 'axios';
+import { useRouter } from 'next/router';
 
 function Menu({ orderData }: any) {
-  const [state, setState] = useState<number>(1);
   const [open, setOpen] = useState<boolean>(false);
-  const [page, setPage] = useState<number>(0);
+
   const [menuPage, setMenuPage] = useState<number>(0);
 
-  // { enabled: Boolean(user) }
+  const router = useRouter();
 
+  // { enabled: Boolean(user) }
+  const logOut = async () => {
+    const ax = await axios.delete('http://localhost:8500/auth/logout', {
+      withCredentials: true,
+    });
+    router.push('/login');
+  };
   return (
     <Box sx={{ display: 'flex' }}>
       <AppBar
@@ -79,14 +88,15 @@ function Menu({ orderData }: any) {
             </ListItem>
           ))}
         </List>
+        <Button
+          onClick={() => {
+            logOut();
+          }}
+        >
+          Log out
+        </Button>
       </Drawer>
-      <MainComponent
-        setPage={setPage}
-        setState={setState}
-        state={state}
-        page={page}
-        open={open}
-      />
+      <MainComponent open={open} />
     </Box>
   );
 }

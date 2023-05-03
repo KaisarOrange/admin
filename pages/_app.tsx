@@ -11,9 +11,7 @@ import { createTheme, ThemeProvider } from '@mui/material';
 
 const queryClient = new QueryClient({
   defaultOptions: {
-    queries: {
-      refetchOnWindowFocus: false, // default: true
-    },
+    queries: {},
   },
 });
 
