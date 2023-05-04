@@ -13,26 +13,16 @@ import axios from 'axios';
 
 function MainComponent({ open }: mainComponentProps) {
   const [state, setState] = useState<number>(1);
-  const [page, setPage] = useState<number>(0);
+  const [page, setPage] = useState<number>(1);
 
   const Table = dynamic(() => import('./Order/TableCollapse'), {
     ssr: false,
   });
 
-  const getUser = async () => {
-    try {
-      const result = await axios.get('http://localhost:8500/auth/user', {
-        withCredentials: true,
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   const { data: orderDataQuery, isLoading: isFetching } = useQuery({
     queryKey: ['customer', page],
     queryFn: () => {
-      return getOrder();
+      return getOrder(page);
     },
     initialData: [],
   });
@@ -40,7 +30,7 @@ function MainComponent({ open }: mainComponentProps) {
   const { data: finishOrder } = useQuery({
     queryKey: ['finish', page],
     queryFn: () => {
-      return getFinishOrder();
+      return getFinishOrder(page);
     },
     initialData: [],
   });
@@ -68,8 +58,9 @@ function MainComponent({ open }: mainComponentProps) {
             fontSize: '1.5rem',
             fontWeight: 'bold',
           }}
+          disabled={page === 1}
           onClick={() => {
-            console.log(orderDataQuery);
+            setPage((prev: any) => prev - 1);
           }}
           variant='text'
           color='warning'
@@ -81,6 +72,7 @@ function MainComponent({ open }: mainComponentProps) {
             fontSize: '1.5rem',
             fontWeight: 'bold',
           }}
+          disabled={page === 3}
           onClick={() => {
             setPage((prev: any) => prev + 1);
           }}
@@ -104,6 +96,7 @@ function MainComponent({ open }: mainComponentProps) {
           disabled={state === 1}
           onClick={() => {
             setState(1);
+            setPage(1);
           }}
           variant='contained'
           color='success'
@@ -115,6 +108,7 @@ function MainComponent({ open }: mainComponentProps) {
           disabled={state === 2}
           onClick={() => {
             setState(2);
+            setPage(1);
           }}
           variant='contained'
           color='error'

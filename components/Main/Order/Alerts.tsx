@@ -8,7 +8,13 @@ import DialogTitle from '@mui/material/DialogTitle';
 import { collection, doc, setDoc, deleteDoc } from 'firebase/firestore';
 import { db } from '@/firebaseConfig';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { finishOrder, getOrder } from '@/pages/api/itemsCall';
+import {
+  finishOrder,
+  getDetail,
+  getFinishOrder,
+  getOrder,
+  revokeFinishOrder,
+} from '@/pages/api/itemsCall';
 import dataType from '@/utils/interfaces/data';
 
 export default function AlertDialog(props: {
@@ -26,32 +32,35 @@ export default function AlertDialog(props: {
     setOpen(false);
   };
 
-  const { refetch: refetchRow } = useQuery({
-    queryKey: ['row', props.page],
+  const { refetch: order } = useQuery({
+    queryKey: ['customer', props.page],
     queryFn: () => {
-      return getOrder();
+      return getOrder(props.page);
     },
-    enabled: false,
+    initialData: [],
   });
-  const { refetch: refetchDone } = useQuery({
-    queryKey: ['rowDone', props.page],
+
+  const { refetch: finish } = useQuery({
+    queryKey: ['finish', props.page],
     queryFn: () => {
-      return getOrder();
+      return getFinishOrder(props.page);
     },
-    enabled: false,
+    initialData: [],
   });
 
   const mutation = useMutation({
     mutationFn: async () => {
-      finishOrder(props.data.order_id);
+      props.state < 2
+        ? finishOrder(props.data.order_id)
+        : revokeFinishOrder(props.data.order_id);
 
       handleClose();
     },
   });
 
   if (mutation.isSuccess) {
-    refetchDone();
-    refetchRow();
+    finish();
+    order();
   }
 
   return (

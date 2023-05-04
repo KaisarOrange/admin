@@ -8,6 +8,7 @@ import {
 import RouterGuard from '../components/RouterGuard';
 import { Analytics } from '@vercel/analytics/react';
 import { createTheme, ThemeProvider } from '@mui/material';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -36,6 +37,7 @@ export default function App({ Component, pageProps }: AppProps) {
           </RouterGuard>
         </Hydrate>
         <Analytics />
+        <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
     </ThemeProvider>
   );

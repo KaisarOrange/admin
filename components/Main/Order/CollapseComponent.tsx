@@ -16,7 +16,7 @@ import axios from 'axios';
 import { useQuery } from '@tanstack/react-query';
 import { getDetail, getOrder } from '@/pages/api/itemsCall';
 
-function CollapseComponent({ i, id }: any) {
+function CollapseComponent({ i, id, page }: any) {
   const { data: detail } = useQuery({
     queryKey: ['orderDetail'],
     queryFn: () => {
@@ -26,9 +26,9 @@ function CollapseComponent({ i, id }: any) {
   });
 
   const { data: customer } = useQuery({
-    queryKey: ['customer'],
+    queryKey: ['customer', page],
     queryFn: () => {
-      return getOrder();
+      return getOrder(page);
     },
     initialData: [],
   });

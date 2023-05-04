@@ -1,17 +1,23 @@
 import axios from 'axios';
 
-const getOrder = async () => {
-  const result = await axios.get('http://localhost:8500/order/getOrder/false', {
-    withCredentials: true,
-  });
+const getOrder = async (page: number) => {
+  const result = await axios.get(
+    `http://localhost:8500/order/getOrder/false/${page}`,
+    {
+      withCredentials: true,
+    }
+  );
 
   return result.data.data;
 };
 
-const getFinishOrder = async () => {
-  const result = await axios.get('http://localhost:8500/order/getOrder/true', {
-    withCredentials: true,
-  });
+const getFinishOrder = async (page: number) => {
+  const result = await axios.get(
+    `http://localhost:8500/order/getOrder/true/${page}`,
+    {
+      withCredentials: true,
+    }
+  );
 
   return result.data.data;
 };
@@ -51,4 +57,25 @@ const finishOrder = async (id: string) => {
   } catch (error) {}
 };
 
-export { getOrder, getDetail, getUser, finishOrder, getFinishOrder };
+const revokeFinishOrder = async (id: string) => {
+  try {
+    const res = await axios({
+      method: 'put',
+      url: 'http://localhost:8500/order/revokeFinishOrder',
+      withCredentials: true,
+      data: {
+        order_id: id,
+      },
+    });
+    console.log(res);
+  } catch (error) {}
+};
+
+export {
+  getOrder,
+  getDetail,
+  getUser,
+  finishOrder,
+  getFinishOrder,
+  revokeFinishOrder,
+};

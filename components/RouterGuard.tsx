@@ -11,7 +11,7 @@ function RouterGuard({ children }: any) {
 
   const [isAuthorized, setIsAuthorized] = useState(false);
 
-  const { data: user, isLoading } = useQuery({
+  const { data: user } = useQuery({
     queryKey: ['user'],
     queryFn: () => {
       return getUser();
