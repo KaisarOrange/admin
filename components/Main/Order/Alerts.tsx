@@ -13,6 +13,7 @@ import {
   getDetail,
   getFinishOrder,
   getOrder,
+  getTotalPages,
   revokeFinishOrder,
 } from '@/pages/api/itemsCall';
 import dataType from '@/utils/interfaces/data';
@@ -48,12 +49,29 @@ export default function AlertDialog(props: {
     initialData: [],
   });
 
+  const { refetch: pageFalse } = useQuery({
+    queryKey: ['pagefalse'],
+    queryFn: () => {
+      return getTotalPages('false');
+    },
+    initialData: [],
+  });
+
+  const { refetch: pageTrue } = useQuery({
+    queryKey: ['pagetrue'],
+    queryFn: () => {
+      return getTotalPages('true');
+    },
+    initialData: [],
+  });
+
   const mutation = useMutation({
     mutationFn: async () => {
       props.state < 2
         ? finishOrder(props.data.order_id)
         : revokeFinishOrder(props.data.order_id);
-
+      pageFalse();
+      pageTrue();
       handleClose();
     },
   });

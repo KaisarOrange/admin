@@ -1,34 +1,46 @@
 import axios from 'axios';
 
 const getOrder = async (page: number) => {
-  const result = await axios.get(
-    `http://localhost:8500/order/getOrder/false/${page}`,
-    {
-      withCredentials: true,
-    }
-  );
+  try {
+    const result = await axios.get(
+      `http://localhost:8500/order/getOrder/false/${page}`,
+      {
+        withCredentials: true,
+      }
+    );
 
-  return result.data.data;
+    return result.data.data;
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 const getFinishOrder = async (page: number) => {
-  const result = await axios.get(
-    `http://localhost:8500/order/getOrder/true/${page}`,
-    {
-      withCredentials: true,
-    }
-  );
+  try {
+    const result = await axios.get(
+      `http://localhost:8500/order/getOrder/true/${page}`,
+      {
+        withCredentials: true,
+      }
+    );
 
-  return result.data.data;
+    return result.data.data;
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 const getDetail = async (customer_id: any) => {
-  const { data } = await axios.get(
-    `http://localhost:8500/order/detail/${customer_id}`,
-    { withCredentials: true }
-  );
+  try {
+    const { data } = await axios.get(
+      `http://localhost:8500/order/detail/${customer_id}`,
+      { withCredentials: true }
+    );
 
-  return data.data;
+    return data.data;
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 const getUser = async () => {
@@ -54,7 +66,9 @@ const finishOrder = async (id: string) => {
       },
     });
     console.log(res);
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 const revokeFinishOrder = async (id: string) => {
@@ -68,7 +82,22 @@ const revokeFinishOrder = async (id: string) => {
       },
     });
     console.log(res);
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const getTotalPages = async (done: string) => {
+  try {
+    const res = await axios({
+      method: 'get',
+      url: `http://localhost:8500/order/totalrows/${done}`,
+      withCredentials: true,
+    });
+    return res.data.data.count;
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export {
@@ -78,4 +107,5 @@ export {
   finishOrder,
   getFinishOrder,
   revokeFinishOrder,
+  getTotalPages,
 };

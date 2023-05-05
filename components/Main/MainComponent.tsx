@@ -1,4 +1,4 @@
-import { getFinishOrder, getOrder } from '@/pages/api/itemsCall';
+import { getFinishOrder, getOrder, getTotalPages } from '@/pages/api/itemsCall';
 import mainComponentProps from '@/utils/interfaces/mainComponentProps';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -14,11 +14,6 @@ import axios from 'axios';
 function MainComponent({ open }: mainComponentProps) {
   const [state, setState] = useState<number>(1);
   const [page, setPage] = useState<number>(1);
-
-  const Table = dynamic(() => import('./Order/TableCollapse'), {
-    ssr: false,
-  });
-
   const { data: orderDataQuery, isLoading: isFetching } = useQuery({
     queryKey: ['customer', page],
     queryFn: () => {
@@ -33,6 +28,29 @@ function MainComponent({ open }: mainComponentProps) {
       return getFinishOrder(page);
     },
     initialData: [],
+  });
+
+  const { data: pageNumberFalse } = useQuery({
+    queryKey: ['pagefalse'],
+    queryFn: () => {
+      return getTotalPages('false');
+    },
+    initialData: [],
+  });
+
+  const { data: pageNumberTrue } = useQuery({
+    queryKey: ['pagetrue'],
+    queryFn: () => {
+      return getTotalPages('true');
+    },
+    initialData: [],
+  });
+
+  const pageLimit = Math.ceil(
+    parseInt(state < 2 ? pageNumberFalse : pageNumberTrue) / 5
+  );
+  const Table = dynamic(() => import('./Order/TableCollapse'), {
+    ssr: false,
   });
 
   return (
@@ -72,8 +90,9 @@ function MainComponent({ open }: mainComponentProps) {
             fontSize: '1.5rem',
             fontWeight: 'bold',
           }}
-          disabled={page === 3}
+          disabled={page === pageLimit}
           onClick={() => {
+            console.log(pageLimit);
             setPage((prev: any) => prev + 1);
           }}
           variant='text'
