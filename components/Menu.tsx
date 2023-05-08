@@ -21,6 +21,7 @@ import AppBar from './Main/AppBar';
 import MainComponent from './Main/MainComponent';
 import axios from 'axios';
 import { useRouter } from 'next/router';
+import FinanceComponent from './Finance/FinanceComponent';
 
 function Menu({ orderData }: any) {
   const [open, setOpen] = useState<boolean>(false);
@@ -36,6 +37,18 @@ function Menu({ orderData }: any) {
     });
     router.push('/login');
   };
+
+  const renderSwitch = (pageMenu: number) => {
+    switch (pageMenu) {
+      case 0:
+        return <MainComponent open={open} />;
+      case 1:
+        return <FinanceComponent open={open} />;
+      default:
+        return 'foo';
+    }
+  };
+
   return (
     <Box sx={{ display: 'flex' }}>
       <AppBar
@@ -96,7 +109,7 @@ function Menu({ orderData }: any) {
           Log out
         </Button>
       </Drawer>
-      <MainComponent open={open} />
+      {renderSwitch(menuPage)}
     </Box>
   );
 }
