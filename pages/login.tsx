@@ -16,7 +16,7 @@ function Login() {
   const [loading, setLoading] = useState(false);
 
   //------------------------ REACT QUERY -------------------------------------
-  const { data: user, isLoading } = useQuery({
+  const { data: user, refetch } = useQuery({
     queryKey: ['user'],
     queryFn: () => {
       return getUser();
@@ -34,7 +34,7 @@ function Login() {
   const onSubmit = async (data: input) => {
     try {
       const user = await axios({
-        url: 'http://localhost:8500/auth/login',
+        url: 'https://pastaboys-backend-production.up.railway.app/auth/login',
         data: { username: data.email, password: data.password },
         withCredentials: true,
         method: 'post',
@@ -43,7 +43,7 @@ function Login() {
     } catch (error) {
       console.log(error);
     }
-    if (user !== null) {
+    if (user.isAuthenticated !== false) {
       router.push('/');
     }
   };

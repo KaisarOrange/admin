@@ -31,13 +31,6 @@ function Menu({ orderData }: any) {
   const [menuPage, setMenuPage] = useState<number>(0);
 
   const router = useRouter();
-  const queryClient = new QueryClient({
-    defaultOptions: {
-      queries: {
-        staleTime: Infinity,
-      },
-    },
-  });
 
   // { enabled: Boolean(user) }
   const logOut = async () => {
@@ -47,7 +40,6 @@ function Menu({ orderData }: any) {
         withCredentials: true,
       }
     );
-    queryClient.clear();
     router.push('/login');
   };
 
