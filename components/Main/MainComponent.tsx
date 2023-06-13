@@ -149,14 +149,6 @@ function MainComponent({ open }: mainComponentProps) {
       </Box>
 
       <Box sx={{ flexGrow: 1, bgcolor: 'background.default', p: 3 }}></Box>
-
-      <Button
-        onClick={() => {
-          console.log(user);
-        }}
-      >
-        Hello
-      </Button>
     </Main>
   );
 }
