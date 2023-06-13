@@ -2,12 +2,9 @@ import axios from 'axios';
 
 const getOrder = async (page: number) => {
   try {
-    const result = await axios.get(
-      `http://localhost:8500/order/getOrder/false/${page}`,
-      {
-        withCredentials: true,
-      }
-    );
+    const result = await axios.get(`https://pastaboys-backend-production.up.railway.app/order/getOrder/false/${page}`, {
+      withCredentials: true,
+    });
 
     return result.data.data;
   } catch (error) {
@@ -17,12 +14,9 @@ const getOrder = async (page: number) => {
 
 const getFinishOrder = async (page: number) => {
   try {
-    const result = await axios.get(
-      `http://localhost:8500/order/getOrder/true/${page}`,
-      {
-        withCredentials: true,
-      }
-    );
+    const result = await axios.get(`https://pastaboys-backend-production.up.railway.app/getOrder/true/${page}`, {
+      withCredentials: true,
+    });
 
     return result.data.data;
   } catch (error) {
@@ -32,10 +26,9 @@ const getFinishOrder = async (page: number) => {
 
 const getDetail = async (customer_id: any) => {
   try {
-    const { data } = await axios.get(
-      `http://localhost:8500/order/detail/${customer_id}`,
-      { withCredentials: true }
-    );
+    const { data } = await axios.get(`https://pastaboys-backend-production.up.railway.app/order/detail/${customer_id}`, {
+      withCredentials: true,
+    });
 
     return data.data;
   } catch (error) {
@@ -45,7 +38,7 @@ const getDetail = async (customer_id: any) => {
 
 const getUser = async () => {
   try {
-    const result = await axios.get('http://localhost:8500/auth/user', {
+    const result = await axios.get('https://pastaboys-backend-production.up.railway.app/auth/user', {
       withCredentials: true,
     });
 
@@ -59,7 +52,7 @@ const finishOrder = async (id: string) => {
   try {
     const res = await axios({
       method: 'put',
-      url: 'http://localhost:8500/order/finishOrder',
+      url: 'https://pastaboys-backend-production.up.railway.app/order/finishOrder',
       withCredentials: true,
       data: {
         order_id: id,
@@ -75,7 +68,7 @@ const revokeFinishOrder = async (id: string) => {
   try {
     const res = await axios({
       method: 'put',
-      url: 'http://localhost:8500/order/revokeFinishOrder',
+      url: 'https://pastaboys-backend-production.up.railway.app/order/revokeFinishOrder',
       withCredentials: true,
       data: {
         order_id: id,
@@ -91,7 +84,7 @@ const getTotalPages = async (done: string) => {
   try {
     const res = await axios({
       method: 'get',
-      url: `http://localhost:8500/order/totalrows/${done}`,
+      url: `https://pastaboys-backend-production.up.railway.app/order/totalrows/${done}`,
       withCredentials: true,
     });
     return res.data.data.count;

@@ -1,4 +1,3 @@
-import { auth } from '@/firebaseConfig';
 import input from '@/utils/types/inputFormType';
 import { Box, Button, TextField } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
@@ -34,7 +33,7 @@ function Login() {
   const onSubmit = async (data: input) => {
     try {
       const user = await axios({
-        url: 'http://localhost:8500/auth/login',
+        url: 'https://pastaboys-backend-production.up.railway.app/auth/login',
         data: { username: data.email, password: data.password },
         withCredentials: true,
         method: 'post',
@@ -105,14 +104,6 @@ function Login() {
                 color='warning'
                 sx={{ backgroundColor: '#cc9b14' }}
                 type='submit'
-              >
-                Login
-              </Button>
-              <Button
-                variant='contained'
-                color='warning'
-                sx={{ backgroundColor: '#cc9b14' }}
-                onClick={() => console.log(user)}
               >
                 Login
               </Button>

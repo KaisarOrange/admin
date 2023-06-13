@@ -1,4 +1,3 @@
-import { auth } from '@/firebaseConfig';
 import { getUser } from '@/pages/api/itemsCall';
 import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
