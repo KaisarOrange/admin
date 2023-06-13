@@ -5,8 +5,6 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import { collection, doc, setDoc, deleteDoc } from 'firebase/firestore';
-import { db } from '@/firebaseConfig';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import {
   finishOrder,
