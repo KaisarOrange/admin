@@ -4,7 +4,7 @@ const getProductSum = async () => {
   try {
     const res = await axios({
       method: 'get',
-      url: 'http://localhost:8500/finance/getProductSum',
+      url: 'https://pastaboys-backend-production.up.railway.app/finance/getProductSum',
       withCredentials: true,
     });
     return res.data.data;
