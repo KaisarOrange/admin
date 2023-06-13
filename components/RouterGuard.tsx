@@ -13,11 +13,12 @@ function RouterGuard({ children }: any) {
     queryFn: () => {
       return getUser();
     },
+
     //  refetchInterval: 1000,
   });
 
   useEffect(() => {
-    console.log(user);
+    console.log('user is: ', user);
     authCheck(router.asPath);
 
     const hideContent = () => setIsAuthorized(false);

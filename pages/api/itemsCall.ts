@@ -2,9 +2,12 @@ import axios from 'axios';
 
 const getOrder = async (page: number) => {
   try {
-    const result = await axios.get(`https://pastaboys-backend-production.up.railway.app/order/getOrder/false/${page}`, {
-      withCredentials: true,
-    });
+    const result = await axios.get(
+      `https://pastaboys-backend-production.up.railway.app/order/getOrder/false/${page}`,
+      {
+        withCredentials: true,
+      }
+    );
 
     return result.data.data;
   } catch (error) {
@@ -14,9 +17,12 @@ const getOrder = async (page: number) => {
 
 const getFinishOrder = async (page: number) => {
   try {
-    const result = await axios.get(`https://pastaboys-backend-production.up.railway.app/getOrder/true/${page}`, {
-      withCredentials: true,
-    });
+    const result = await axios.get(
+      `https://pastaboys-backend-production.up.railway.app/order/getOrder/true/${page}`,
+      {
+        withCredentials: true,
+      }
+    );
 
     return result.data.data;
   } catch (error) {
@@ -26,9 +32,12 @@ const getFinishOrder = async (page: number) => {
 
 const getDetail = async (customer_id: any) => {
   try {
-    const { data } = await axios.get(`https://pastaboys-backend-production.up.railway.app/order/detail/${customer_id}`, {
-      withCredentials: true,
-    });
+    const { data } = await axios.get(
+      `https://pastaboys-backend-production.up.railway.app/order/detail/${customer_id}`,
+      {
+        withCredentials: true,
+      }
+    );
 
     return data.data;
   } catch (error) {
@@ -38,9 +47,12 @@ const getDetail = async (customer_id: any) => {
 
 const getUser = async () => {
   try {
-    const result = await axios.get('https://pastaboys-backend-production.up.railway.app/auth/user', {
-      withCredentials: true,
-    });
+    const result = await axios.get(
+      'https://pastaboys-backend-production.up.railway.app/auth/user',
+      {
+        withCredentials: true,
+      }
+    );
 
     return result.data;
   } catch (error) {
