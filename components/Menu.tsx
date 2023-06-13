@@ -22,6 +22,8 @@ import MainComponent from './Main/MainComponent';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import FinanceComponent from './Finance/FinanceComponent';
+import { getUser } from '@/pages/api/itemsCall';
+import { QueryCache, QueryClient, useQuery } from '@tanstack/react-query';
 
 function Menu({ orderData }: any) {
   const [open, setOpen] = useState<boolean>(false);
@@ -29,12 +31,20 @@ function Menu({ orderData }: any) {
   const [menuPage, setMenuPage] = useState<number>(0);
 
   const router = useRouter();
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        staleTime: Infinity,
+      },
+    },
+  });
 
   // { enabled: Boolean(user) }
   const logOut = async () => {
     const ax = await axios.delete('http://localhost:8500/auth/logout', {
       withCredentials: true,
     });
+    queryClient.clear();
     router.push('/login');
   };
 

@@ -1,4 +1,9 @@
-import { getFinishOrder, getOrder, getTotalPages } from '@/pages/api/itemsCall';
+import {
+  getFinishOrder,
+  getOrder,
+  getTotalPages,
+  getUser,
+} from '@/pages/api/itemsCall';
 import mainComponentProps from '@/utils/interfaces/mainComponentProps';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -20,6 +25,13 @@ function MainComponent({ open }: mainComponentProps) {
       return getOrder(page);
     },
     initialData: [],
+  });
+  const { data: user, isLoading } = useQuery({
+    queryKey: ['user'],
+    queryFn: () => {
+      return getUser();
+    },
+    //  refetchInterval: 1000,
   });
 
   const { data: finishOrder } = useQuery({
@@ -137,6 +149,14 @@ function MainComponent({ open }: mainComponentProps) {
       </Box>
 
       <Box sx={{ flexGrow: 1, bgcolor: 'background.default', p: 3 }}></Box>
+
+      <Button
+        onClick={() => {
+          console.log(user);
+        }}
+      >
+        Hello
+      </Button>
     </Main>
   );
 }

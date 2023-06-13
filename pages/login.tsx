@@ -21,6 +21,7 @@ function Login() {
     queryFn: () => {
       return getUser();
     },
+    initialData: false,
     //  refetchInterval: 1000,
   });
 
@@ -33,7 +34,7 @@ function Login() {
   const onSubmit = async (data: input) => {
     try {
       const user = await axios({
-        url: 'https://pastaboys-backend-production.up.railway.app/auth/login',
+        url: 'http://localhost:8500/auth/login',
         data: { username: data.email, password: data.password },
         withCredentials: true,
         method: 'post',

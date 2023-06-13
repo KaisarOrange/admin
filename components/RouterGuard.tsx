@@ -13,12 +13,12 @@ function RouterGuard({ children }: any) {
     queryFn: () => {
       return getUser();
     },
-
+    initialData: false,
     //  refetchInterval: 1000,
   });
 
   useEffect(() => {
-    console.log('user is: ', user);
+    console.log('user is: ', user.isAuthenticated);
     authCheck(router.asPath);
 
     const hideContent = () => setIsAuthorized(false);
@@ -35,7 +35,7 @@ function RouterGuard({ children }: any) {
   });
 
   const authCheck = (url: string) => {
-    if (user === false && url !== '/login') {
+    if (user.isAuthenticated === false && url !== '/login') {
       setIsAuthorized(false);
       router.push('/login');
     } else {
