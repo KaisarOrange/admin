@@ -14,8 +14,13 @@ import PieChart from './PieChart';
 import BarChart from './BarChart';
 import Main from '../Main/Main';
 import mainComponentProps from '@/utils/interfaces/mainComponentProps';
-import { getProductSum } from '@/pages/api/financeApi';
+import {
+  getProductSum,
+  getTotalOrderedProduct,
+  getTotalRevenue,
+} from '@/pages/api/financeApi';
 import { useQuery } from '@tanstack/react-query';
+import converter from './converter';
 
 function FinanceComponent({ open }: mainComponentProps) {
   const data = [
@@ -57,6 +62,22 @@ function FinanceComponent({ open }: mainComponentProps) {
       },
     ],
   };
+
+  const { data: revenueData } = useQuery({
+    queryKey: ['revenue'],
+    queryFn: () => {
+      return getTotalRevenue();
+    },
+    initialData: [],
+  });
+
+  const { data: totalOrderedData } = useQuery({
+    queryKey: ['totalorder'],
+    queryFn: () => {
+      return getTotalOrderedProduct();
+    },
+    initialData: [],
+  });
 
   useEffect(() => {});
   return (
@@ -155,7 +176,7 @@ function FinanceComponent({ open }: mainComponentProps) {
               <Typography>Omset</Typography>
 
               <Typography fontSize={'1.5rem'} fontWeight={'bold'}>
-                Rp. 2.000.000
+                Rp. {converter(revenueData[0].total_price)}
               </Typography>
             </Box>
             <Box
@@ -189,7 +210,7 @@ function FinanceComponent({ open }: mainComponentProps) {
               <Typography>Total Orders</Typography>
 
               <Typography fontSize={'1.5rem'} fontWeight={'bold'}>
-                64
+                {totalOrderedData[0].total_order}
               </Typography>
             </Box>
           </Box>

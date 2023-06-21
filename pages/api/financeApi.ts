@@ -4,11 +4,35 @@ const getProductSum = async () => {
   try {
     const res = await axios({
       method: 'get',
-      url: 'http://localhost:8500/finance/getProductSum',
+      url: 'https://pastaboys-backend-production.up.railway.app/finance/getProductSum',
       withCredentials: true,
     });
     return res.data.data;
   } catch (error) {}
 };
 
-export { getProductSum };
+const getTotalRevenue = async () => {
+  try {
+    const res = await axios(
+      'http://pastaboys-backend-production.up.railway.app/finance/getTotalSumRevenue',
+      { withCredentials: true }
+    );
+    return res.data.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const getTotalOrderedProduct = async () => {
+  try {
+    const res = await axios(
+      'http://pastaboys-backend-production.up.railway.app/finance/getTotalOrderedProduct',
+      { withCredentials: true }
+    );
+    return res.data.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export { getProductSum, getTotalRevenue, getTotalOrderedProduct };
