@@ -33,18 +33,18 @@ function Login() {
 
   const onSubmit = async (data: input) => {
     try {
-      const user = await axios({
-        url: 'https://pastaboys-backend-production.up.railway.app/auth/login',
+      const userLogin = await axios({
+        url: 'http://localhost:8500/auth/login',
         data: { username: data.email, password: data.password },
         withCredentials: true,
         method: 'post',
       });
+      console.log(userLogin);
       console.log(user);
+      router.push('/');
+      refetch();
     } catch (error) {
       console.log(error);
-    }
-    if (user.isAuthenticated !== false) {
-      router.push('/');
     }
   };
 
@@ -110,6 +110,16 @@ function Login() {
               </Button>
             </>
           </Box>
+          <Button
+            variant='contained'
+            color='warning'
+            sx={{ backgroundColor: '#cc9b14' }}
+            onClick={() => {
+              getUser().then((e) => console.log(e));
+            }}
+          >
+            Test
+          </Button>
         </form>
       )}
     </Box>

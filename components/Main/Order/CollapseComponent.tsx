@@ -18,7 +18,7 @@ import { getDetail, getOrder } from '@/pages/api/itemsCall';
 
 function CollapseComponent({ i, id, page }: any) {
   const { data: detail } = useQuery({
-    queryKey: ['orderDetail'],
+    queryKey: ['orderDetail', id],
     queryFn: () => {
       return getDetail(id);
     },

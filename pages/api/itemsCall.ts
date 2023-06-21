@@ -47,7 +47,7 @@ const getDetail = async (customer_id: any) => {
 
 const getUser = async () => {
   try {
-    const result = await axios.get(
+    const result = await axios(
       'https://pastaboys-backend-production.up.railway.app/auth/user',
       {
         withCredentials: true,

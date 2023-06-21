@@ -26,13 +26,6 @@ function MainComponent({ open }: mainComponentProps) {
     },
     initialData: [],
   });
-  const { data: user, isLoading } = useQuery({
-    queryKey: ['user'],
-    queryFn: () => {
-      return getUser();
-    },
-    //  refetchInterval: 1000,
-  });
 
   const { data: finishOrder } = useQuery({
     queryKey: ['finish', page],
