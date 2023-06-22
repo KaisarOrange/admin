@@ -14,7 +14,7 @@ const getProductSum = async () => {
 const getTotalRevenue = async () => {
   try {
     const res = await axios(
-      'http://pastaboys-backend-production.up.railway.app/finance/getTotalSumRevenue',
+      'https://pastaboys-backend-production.up.railway.app/finance/getTotalSumRevenue',
       { withCredentials: true }
     );
     return res.data.data;
@@ -26,7 +26,7 @@ const getTotalRevenue = async () => {
 const getTotalOrderedProduct = async () => {
   try {
     const res = await axios(
-      'http://pastaboys-backend-production.up.railway.app/finance/getTotalOrderedProduct',
+      'https://pastaboys-backend-production.up.railway.app/finance/getTotalOrderedProduct',
       { withCredentials: true }
     );
     return res.data.data;
