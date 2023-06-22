@@ -37,7 +37,7 @@ export default function App({ Component, pageProps }: AppProps) {
           </RouterGuard>
         </Hydrate>
         <Analytics />
-        <ReactQueryDevtools initialIsOpen={false} />
+        {/* <ReactQueryDevtools initialIsOpen={false} /> */}
       </QueryClientProvider>
     </ThemeProvider>
   );

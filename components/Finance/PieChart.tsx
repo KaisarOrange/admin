@@ -26,7 +26,7 @@ function PieChart() {
 
   useEffect(() => {});
   const data = {
-    labels: ['Chicken Mushroom', 'Carbonara', 'Cookies'],
+    labels: ['Chicken Mushroom', 'Carbonara', 'Fettuccine Mushroom'],
     datasets: [
       {
         label: '# of Votes',

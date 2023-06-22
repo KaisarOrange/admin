@@ -68,7 +68,7 @@ function FinanceComponent({ open }: mainComponentProps) {
     queryFn: () => {
       return getTotalRevenue();
     },
-    initialData: [],
+    initialData: [{ total_price: 0 }],
   });
 
   const { data: totalOrderedData } = useQuery({
@@ -76,7 +76,7 @@ function FinanceComponent({ open }: mainComponentProps) {
     queryFn: () => {
       return getTotalOrderedProduct();
     },
-    initialData: [],
+    initialData: [{ total_order: 0 }],
   });
 
   useEffect(() => {});
@@ -85,12 +85,19 @@ function FinanceComponent({ open }: mainComponentProps) {
       <Box
         sx={{
           display: 'flex',
-          justifyContent: 'center',
-          gap: '200px',
+          flexDirection: { xs: 'column-reverse', lg: 'row' },
+          gap: { xs: '50px', lg: '200px' },
           marginTop: '100px',
         }}
       >
-        <Box sx={{ display: 'flex', flexDirection: 'column', gap: '40px' }}>
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '40px',
+            margin: 'auto',
+          }}
+        >
           <Box
             sx={{
               backgroundColor: '#FCD581',
@@ -158,7 +165,6 @@ function FinanceComponent({ open }: mainComponentProps) {
             sx={{
               display: 'flex',
               gap: '20px',
-
               flexWrap: 'wrap',
             }}
           >
@@ -171,12 +177,13 @@ function FinanceComponent({ open }: mainComponentProps) {
                 alignItems: 'center',
                 padding: '20px',
                 borderRadius: '25px',
+                width: { xs: '80vw', lg: '11vw' },
               }}
             >
               <Typography>Omset</Typography>
 
               <Typography fontSize={'1.5rem'} fontWeight={'bold'}>
-                Rp. {converter(revenueData[0].total_price)}
+                Rp. {revenueData ? converter(revenueData[0].total_price) : 0}
               </Typography>
             </Box>
             <Box
@@ -187,13 +194,14 @@ function FinanceComponent({ open }: mainComponentProps) {
                 justifyContent: 'center',
                 alignItems: 'center',
                 padding: '20px',
+                width: { xs: '80vw', lg: '11vw' },
                 borderRadius: '25px',
               }}
             >
               <Typography>Kas</Typography>
 
               <Typography fontSize={'1.5rem'} fontWeight={'bold'}>
-                Rp. 1.000.000
+                Rp. 0
               </Typography>
             </Box>
             <Box
@@ -205,17 +213,19 @@ function FinanceComponent({ open }: mainComponentProps) {
                 alignItems: 'center',
                 padding: '20px',
                 borderRadius: '25px',
+
+                width: { xs: '80vw', lg: '11vw' },
               }}
             >
               <Typography>Total Orders</Typography>
 
               <Typography fontSize={'1.5rem'} fontWeight={'bold'}>
-                {totalOrderedData[0].total_order}
+                {totalOrderedData[0]?.total_order}
               </Typography>
             </Box>
           </Box>
-          <BarChart data={dataBar} />
-          <BarChart data={dataBebanBar} />
+          {/* <BarChart data={dataBar} />
+          <BarChart data={dataBebanBar} /> */}
         </Box>
       </Box>
     </Main>

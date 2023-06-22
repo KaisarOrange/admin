@@ -35,7 +35,7 @@ function Menu({ orderData }: any) {
   // { enabled: Boolean(user) }
   const logOut = async () => {
     const ax = await axios.delete(
-      'http://localhost:8500/auth/logout',
+      'https://pastaboys-backend-production.up.railway.app/auth/logout',
       {
         withCredentials: true,
       }
