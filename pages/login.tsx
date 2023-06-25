@@ -12,7 +12,7 @@ import { getUser } from './api/itemsCall';
 
 function Login() {
   const router = useRouter();
-
+  axios.defaults.withCredentials = true;
   const [loading, setLoading] = useState(false);
 
   //------------------------ REACT QUERY -------------------------------------
@@ -34,10 +34,14 @@ function Login() {
   const onSubmit = async (data: input) => {
     try {
       const userLogin = await axios({
-        url: 'http://localhost:8500/auth/login',
+        url: 'https://pastaboys-backend-production.up.railway.app/auth/login',
         data: { username: data.email, password: data.password },
         withCredentials: true,
         method: 'post',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
       });
       console.log(userLogin);
       console.log(user);

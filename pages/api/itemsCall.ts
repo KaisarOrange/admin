@@ -51,6 +51,10 @@ const getUser = async () => {
       'https://pastaboys-backend-production.up.railway.app/auth/user',
       {
         withCredentials: true,
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
       }
     );
 
