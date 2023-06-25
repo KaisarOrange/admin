@@ -14,9 +14,9 @@ import React, { useEffect, useState } from 'react';
 import converter from './functions/converter';
 import axios from 'axios';
 import { useQuery } from '@tanstack/react-query';
-import { getDetail, getOrder } from '@/pages/api/itemsCall';
+import { getDetail, getFinishOrder, getOrder } from '@/pages/api/itemsCall';
 
-function CollapseComponent({ i, id, page }: any) {
+function CollapseComponent({ i, id, page, state }: any) {
   const { data: detail } = useQuery({
     queryKey: ['orderDetail', id],
     queryFn: () => {
@@ -33,18 +33,16 @@ function CollapseComponent({ i, id, page }: any) {
     initialData: [],
   });
 
+  const { data: finishCustomer } = useQuery({
+    queryKey: ['finishCustomer', page],
+    queryFn: () => {
+      return getFinishOrder(page);
+    },
+    initialData: [],
+  });
+
   return (
     <Box sx={{ marginTop: 1 }}>
-      <Typography
-        sx={{ fontSize: '0.9rem', padding: '10px', fontWeight: '600' }}
-      >
-        Nama: {customer[i]?.name}
-      </Typography>
-      <Typography
-        sx={{ fontSize: '0.9rem', padding: '10px', fontWeight: '600' }}
-      >
-        HP:{customer[i]?.number}
-      </Typography>
       <Typography
         sx={{ fontSize: '1rem', padding: '10px' }}
         variant='h6'
@@ -59,7 +57,23 @@ function CollapseComponent({ i, id, page }: any) {
           fontSize: '0.8rem',
         }}
       >
-        {customer[i]?.adress}
+        {state < 2 ? customer[i]?.adress : finishCustomer[i]?.adress}
+      </Typography>
+      <Typography
+        sx={{ fontSize: '1rem', padding: '10px' }}
+        variant='h6'
+        gutterBottom
+        component='div'
+      >
+        No. Hp:
+      </Typography>
+      <Typography
+        sx={{
+          padding: '0px 10px',
+          fontSize: '0.8rem',
+        }}
+      >
+        {state < 2 ? customer[i]?.number : finishCustomer[i]?.number}
       </Typography>
 
       <Toolbar />

@@ -10,4 +10,5 @@ export default interface dataType {
   note: Array<note>;
   number: number;
   order: Array<order>;
+  date: any;
 }

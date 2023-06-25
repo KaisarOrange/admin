@@ -8,11 +8,13 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import AlertDialog from './Alerts';
 import CollapseComponent from './CollapseComponent';
 import rowProps from '@/utils/interfaces/rowProps';
+import { useQuery } from '@tanstack/react-query';
+import { getFinishOrder, getOrder } from '@/pages/api/itemsCall';
 
 function Row({ row, i, state, page }: rowProps) {
   const [open, setOpen] = React.useState(false);
   const odd: boolean = i % 2 === 0;
-
+  const date = new Date(row.date);
   return (
     <React.Fragment>
       <TableRow
@@ -52,7 +54,7 @@ function Row({ row, i, state, page }: rowProps) {
           }}
           align='center'
         >
-          {row.number}
+          {`${date.getDate()} / ${date.getMonth()} / ${date.getFullYear()}`}
         </TableCell>
         {/* <TableCell
           sx={{
@@ -76,7 +78,7 @@ function Row({ row, i, state, page }: rowProps) {
           colSpan={12}
         >
           <Collapse in={open} timeout='auto' unmountOnExit>
-            <CollapseComponent i={i} id={row.id} page={page} />
+            <CollapseComponent i={i} id={row.id} page={page} state={state} />
           </Collapse>
         </TableCell>
       </TableRow>
