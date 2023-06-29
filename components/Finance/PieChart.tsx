@@ -26,7 +26,7 @@ function PieChart() {
 
   useEffect(() => {});
   const data = {
-    labels: ['Chicken Mushroom', 'Carbonara', 'Fettuccine Mushroom'],
+    labels: ['CM', 'FC', 'FM', 'Bundle CM', 'Bundle FM', 'Bundle GN', 'GN'],
     datasets: [
       {
         label: '# of Votes',
@@ -36,16 +36,18 @@ function PieChart() {
           '#63B8F1',
           '#d52941',
           '#4BAC53',
-          'rgba(153, 102, 255, 0.2)',
           'rgba(255, 159, 64, 0.2)',
+          'yellow',
+          '#A020F0',
         ],
         borderColor: [
           '#63B8F1',
           '#d52941',
-          '#4BAC53',
           'rgba(75, 192, 192, 1)',
-          'rgba(153, 102, 255, 1)',
-          'rgba(255, 159, 64, 1)',
+
+          'rgba(255, 159, 64, 0.2)',
+          'yellow',
+          '#A020F0',
         ],
       },
     ],
