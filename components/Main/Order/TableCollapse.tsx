@@ -19,13 +19,14 @@ export default function CollapsibleTable({
 }: CollapseProps) {
   const tableData = data;
   return (
-    <TableContainer sx={{ maxWidth: '90vw', margin: 'auto' }} component={Paper}>
+    <TableContainer sx={{ margin: 'auto' }} component={Paper}>
       <Table aria-label='collapsible table'>
         <TableHead sx={{ backgroundColor: '#dbae30' }}>
           <TableRow>
             <TableCell />
             <TableCell align='left'>Nama</TableCell>
             <TableCell align='center'>Tanggal</TableCell>
+            <TableCell align='center'>Delivery</TableCell>
             {/* <TableCell align='left'>Alamat</TableCell> */}
             <TableCell align='left'></TableCell>
           </TableRow>

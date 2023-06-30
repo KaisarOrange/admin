@@ -77,9 +77,9 @@ function CollapseComponent({ i, id, page, state }: any) {
       </Typography>
 
       <Toolbar />
-      {/* <Typography sx={{ fontSize: '1rem' }} variant='h6'>
-        Pesanan
-      </Typography> */}
+      <Typography sx={{ fontSize: '1rem' }} variant='h6'>
+        {customer[i]?.delivery_time.slice(0, -3)}
+      </Typography>
       <Table size='small' aria-label='purchases'>
         <TableHead>
           <TableRow>

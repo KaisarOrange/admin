@@ -56,6 +56,7 @@ function Row({ row, i, state, page }: rowProps) {
         >
           {`${date.getDate()} / ${date.getMonth()} / ${date.getFullYear()}`}
         </TableCell>
+        <TableCell>{row.delivery_time.slice(0, -3)}</TableCell>
         {/* <TableCell
           sx={{
             whiteSpace: 'nowrap',
